@@ -1,0 +1,23 @@
+
+
+.env
+node_modules/
+# Local backups and database inspection files
+*.bak
+*.backup
+db-inspection.txt
+nuriva-db-output.txt
+
+# Local-only database inspection and testing tools
+check-*.js
+inspect-*.js
+list-business-accounts.js
+test-db-connection.js
+seed-subscription-plan.js
+*.backup-*
+
+# Database migration/setup scripts — keep out of initial deployment
+create-platform-subscriptions.js
+create-subscription-invoices.js
+create-subscription-payments.js
+create-subscription-plans.js

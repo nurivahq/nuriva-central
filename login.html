@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>NURIVA Central — Owner Login</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: #0c1715;
+            color: #edf5f0;
+            font-family: Inter, "Segoe UI", sans-serif;
+        }
+
+        .panel {
+            width: 100%;
+            max-width: 410px;
+            padding: 38px;
+            border: 1px solid #29443b;
+            border-radius: 20px;
+            background: #14231f;
+            box-shadow: 0 24px 70px #0005;
+        }
+
+        .brand {
+            color: #9ed0b6;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        h1 {
+            margin: 24px 0 8px;
+            font-size: 28px;
+            letter-spacing: -0.8px;
+        }
+
+        .subtitle {
+            margin: 0 0 28px;
+            color: #a5b8af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-size: 13px;
+            color: #d5e4dc;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #38564a;
+            border-radius: 9px;
+            outline: none;
+            background: #0d1916;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #91c8aa;
+            box-shadow: 0 0 0 3px #91c8aa22;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: 0;
+            border-radius: 9px;
+            background: #a9d8bb;
+            color: #10231a;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover { background: #c0e6cd; }
+
+        .footer {
+            margin-top: 24px;
+            color: #80968b;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 440px) {
+            .panel { padding: 27px 22px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="panel">
+        <div class="brand">NURIVA CENTRAL</div>
+        <h1>Welcome back.</h1>
+        <p class="subtitle">Sign in with your owner credentials to manage the NURIVA platform.</p>
+
+        <form method="POST" action="/login">
+            <input type="hidden" name="csrfToken" id="csrfToken">
+
+            <label for="username">Owner username</label>
+            <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required
+                autofocus
+            >
+
+            <label for="password">Password</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">Sign in securely</button>
+        </form>
+
+        <p class="footer">Private owner access · NURIVA Central</p>
+    </main>
+
+    <script>
+        fetch("/api/login-csrf")
+            .then(response => {
+                if (!response.ok) throw new Error("Unable to initialize login form");
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("csrfToken").value = data.token;
+            })
+            .catch(() => {
+                const button = document.querySelector("button");
+                button.disabled = true;
+                button.textContent = "Reload page to continue";
+            });
+    </script>
+</body>
+</html>

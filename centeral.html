@@ -1,0 +1,778 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NURIVA Central</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#f4f6f3;
+  --surface:#fff;
+  --green:#214e40;
+  --dark:#16392f;
+  --light:#e5eee8;
+  --text:#202923;
+  --muted:#7a857e;
+  --border:#e7ebe6;
+  --orange:#bd7b43;
+  --shadow:0 8px 30px rgba(28,52,39,.035);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px "DM Sans",sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+
+.top-header{background:var(--dark);color:#fff}
+.header-inner{
+  max-width:1600px;margin:auto;padding:18px 32px;
+  display:flex;justify-content:space-between;align-items:center;gap:20px
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:40px;height:40px;border:1px solid #ffffff70;
+  border-radius:10px;display:grid;place-items:center;
+  font:800 21px Manrope,sans-serif
+}
+.brand-name{font:800 18px Manrope,sans-serif;letter-spacing:2px}
+.brand-sub{font-size:10px;color:#a7bdb2;letter-spacing:1.5px;margin-top:3px}
+.header-right{display:flex;align-items:center;gap:22px}
+.clock{text-align:right}
+.clock-time{font:800 14px Manrope,sans-serif}
+.clock-date{font-size:10px;color:#b8c8bf;margin-top:4px}
+.admin{display:flex;align-items:center;gap:10px;border-left:1px solid #ffffff30;padding-left:18px}
+.avatar{width:36px;height:36px;border-radius:10px;background:var(--light);color:var(--green);display:grid;place-items:center;font-weight:800}
+.profile-name{font-size:12px;font-weight:700}
+.profile-role{font-size:10px;color:#b8c8bf;margin-top:3px}
+
+.logout-button {
+  padding: 9px 12px;
+  border: 1px solid #ffffff50;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.logout-button:hover:not(:disabled) {
+  background: #ffffff15;
+}
+
+.logout-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-wrap{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.nav{
+  max-width:1600px;margin:auto;padding:0 25px;
+  display:flex;gap:3px;overflow-x:auto
+}
+.nav button{
+  background:transparent;border:0;border-bottom:3px solid transparent;
+  padding:17px 13px 14px;white-space:nowrap;color:#68736b;
+  font-size:12px;font-weight:600
+}
+.nav button:hover{color:var(--green);background:#f8faf8}
+.nav button.active{color:var(--green);border-bottom-color:var(--green)}
+
+main{max-width:1600px;margin:auto;padding:30px 32px 45px}
+.page{display:none}
+.page.active{display:block}
+.page-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:25px}
+.eyebrow{color:var(--green);font-size:10px;text-transform:uppercase;letter-spacing:1.7px;font-weight:800;margin-bottom:9px}
+h1,h2,h3,p{margin-top:0}
+h1{font:800 clamp(24px,2.5vw,31px) Manrope,sans-serif;letter-spacing:-1px;margin-bottom:8px}
+.subtitle{color:var(--muted);font-size:12px;line-height:1.7;margin-bottom:0}
+.btn{padding:10px 15px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text);font-size:12px;font-weight:600}
+.btn:hover{border-color:#aabbb0}
+.btn-primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-primary:hover{background:var(--dark)}
+.button-row{display:flex;gap:9px;flex-wrap:wrap}
+
+.grid{display:grid;gap:17px}
+.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.two-grid{grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr)}
+.three-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;min-width:0;box-shadow:var(--shadow)}
+.stat-card{padding:21px}
+.stat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stat-label{color:var(--muted);font-size:11px;font-weight:600}
+.stat-symbol{
+  width:33px;height:33px;display:grid;place-items:center;
+  border-radius:9px;color:var(--green);background:var(--light);
+  font:700 12px Manrope,sans-serif
+}
+.stat-value{font:800 28px Manrope,sans-serif;letter-spacing:-1px;margin:18px 0 9px}
+.stat-foot{color:var(--muted);font-size:10px;line-height:1.5}
+
+#activeBusinesses{
+  font-size:13px;
+  font-weight:600;
+}
+
+.section-gap{margin-top:19px}
+.panel-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:20px}
+.panel-heading h2{font:700 14px Manrope,sans-serif;margin-bottom:5px}
+.panel-description{color:var(--muted);font-size:11px;line-height:1.6;margin-bottom:0}
+.pill{display:inline-flex;align-items:center;border-radius:6px;padding:5px 8px;background:#f0f3ef;color:#6d796f;font-size:10px;white-space:nowrap}
+.pill-green{background:#e6f2e9;color:#34744e}
+.pill-orange{background:#f8eee3;color:#9d6b36}
+.divider{border-top:1px solid var(--border);margin:17px 0}
+.notice{background:#f7f9f6;border:1px solid var(--border);border-radius:9px;padding:13px;color:var(--muted);font-size:11px;line-height:1.7}
+.notice strong{color:var(--text)}
+
+.period-tabs{display:flex;gap:4px;background:#f1f4f0;padding:4px;border-radius:8px;flex-wrap:wrap}
+.period-tab{border:0;background:transparent;padding:7px 10px;border-radius:6px;font-size:10px;color:var(--muted)}
+.period-tab.active{background:#fff;color:var(--green);font-weight:700}
+.chart-area{min-height:230px}
+.empty-chart{
+  height:230px;border:1px dashed #dce4dc;border-radius:9px;
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 56px,#f0f3ef 57px,transparent 58px);
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:20px
+}
+.empty-chart strong{display:block;font-size:12px;margin-bottom:8px}
+.empty-chart span{color:var(--muted);font-size:11px;line-height:1.7}
+.payment-row{display:flex;align-items:center;gap:18px;padding:11px 0}
+.ring{width:82px;height:82px;border-radius:50%;flex-shrink:0;background:conic-gradient(#e6ebe6 0deg 360deg);display:grid;place-items:center;position:relative}
+.ring:before{content:"";position:absolute;inset:8px;background:#fff;border-radius:50%}
+.ring-center{position:relative;text-align:center}
+.ring-center strong{display:block;font:800 17px Manrope,sans-serif}
+.ring-center span{font-size:9px;color:var(--muted)}
+.payment-info{flex:1;min-width:0}
+.payment-info h3{font-size:12px;margin-bottom:6px}
+.payment-info p{font-size:10px;line-height:1.6;color:var(--muted);margin-bottom:9px}
+
+.table-wrap{width:100%;overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:570px}
+th{text-align:left;color:var(--muted);background:#fafbf9;font-size:10px;padding:12px 13px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:15px 13px;border-bottom:1px solid #edf0ec;font-size:11px;color:#59645d}
+tbody tr:last-child td{border-bottom:0}
+.table-empty{padding:36px 15px;text-align:center;color:var(--muted);font-size:11px;line-height:1.8}
+
+.metric-placeholder{border:1px dashed #dce4dc;border-radius:10px;padding:25px 17px;color:var(--muted);font-size:11px;line-height:1.8;text-align:center}
+.comparison-list{display:grid;gap:19px}
+.comparison-item{display:grid;gap:9px}
+.comparison-title{display:flex;justify-content:space-between;gap:10px;font-size:11px;font-weight:600}
+.comparison-title span:last-child{color:var(--muted);font-weight:400}
+.progress-track{height:7px;border-radius:20px;background:#edf1ec;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--green)}
+
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field{display:grid;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:700;color:#4e5c52}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid #dfe5de;background:#fff;border-radius:8px;
+  padding:11px 12px;outline:none;font-size:12px;color:var(--text)
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#7c9e88;box-shadow:0 0 0 3px var(--light)}
+.field textarea{min-height:120px;resize:vertical}
+
+.community-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:17px}
+.community-room{padding:13px 11px;border-radius:8px;cursor:pointer;font-size:11px;color:var(--muted);margin-top:4px}
+.community-room:hover{background:#f7f9f6}
+.community-room.active{background:var(--light);color:var(--green);font-weight:700}
+.message-area{min-height:290px;display:flex;flex-direction:column}
+.message-empty{flex:1;display:grid;place-items:center;text-align:center;color:var(--muted);line-height:1.8;font-size:11px;padding:30px}
+.message-compose{display:flex;gap:8px;border-top:1px solid var(--border);padding-top:15px}
+.message-compose input{flex:1;min-width:0;border:1px solid var(--border);border-radius:8px;padding:11px;font-size:12px}
+.footer{padding:23px 0 0;color:#98a19a;font-size:10px;display:flex;justify-content:space-between;gap:10px}
+
+@media(max-width:1050px){
+  main{padding:25px 20px 35px}
+  .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .two-grid{grid-template-columns:1fr}
+  .three-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .header-inner{align-items:flex-start;flex-direction:column;padding:16px}
+  .header-right{width:100%;justify-content:space-between}
+  .nav{padding:0 8px}
+  .nav button{padding:15px 10px 12px}
+  main{padding:22px 14px 28px}
+  .page-heading{flex-direction:column}
+  .stats-grid,.three-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-card{padding:15px}
+  .stat-value{font-size:23px}
+  .panel{padding:16px}
+  .community-layout,.form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .footer{flex-direction:column}
+}
+@media(max-width:390px){.stats-grid,.three-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="top-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <div>
+        <div class="brand-name">NURIVA</div>
+        <div class="brand-sub">Central Control</div>
+      </div>
+    </div>
+
+    
+<div class="header-right">
+  <div class="clock">
+    <div class="clock-time" id="clock">--:--:--</div>
+    <div class="clock-date" id="clockDate">Loading local time</div>
+  </div>
+
+  <div class="admin">
+    <div class="avatar">AD</div>
+    <div>
+      <div class="profile-name">Central Admin</div>
+      <div class="profile-role">Administrator interface</div>
+    </div>
+  </div>
+
+  <form method="POST" action="/logout" id="logoutForm">
+    <input type="hidden" name="csrfToken" id="logoutCsrfToken">
+    <button type="submit" class="logout-button" id="logoutButton" disabled>
+      Log out
+    </button>
+  </form>
+</div>
+</div>
+</div>
+</header>
+
+
+      <nav class="nav-wrap">
+        <div class="nav">
+          <button class="active" data-page="dashboard">Overview</button>
+          <button data-page="cafes">Café management</button>
+          <button data-page="payments">Payments</button>
+          <button data-page="agreements">Agreements</button>
+          <button data-page="analytics">Business analytics</button>
+          <button data-page="community">Owner community</button>
+          <button data-page="messages">Private messages</button>
+          <button data-page="settings">Settings</button>
+        </div>
+      </nav>
+
+<main>
+<section class="page active" id="page-dashboard">
+  <div class="page-heading">
+    <div>
+      <div class="eyebrow">Central command</div>
+      <h1>System overview</h1>
+      <p class="subtitle">Your NURIVA operations, cafés, payments and owner activity in one place.</p>
+    </div>
+    <div class="button-row">
+      <button class="btn" id="refreshPreview">Refresh view</button>
+      <button class="btn btn-primary" data-go="cafes">Manage cafés</button>
+    </div>
+  </div>
+
+  <div class="grid stats-grid">
+          
+        <div class="panel stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Registered cafés</span>
+            <span class="stat-symbol">N</span>
+          </div>
+          <div class="stat-value" id="totalBusinesses">—</div>
+          <div class="stat-foot" id="activeBusinesses">Waiting for live system data</div>
+        </div>
+
+
+        <div class="panel stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Active subscriptions</span>
+            <span class="stat-symbol">A</span>
+          </div>
+          <div class="stat-value" id="activeSubscriptions">—</div>
+          <div class="stat-foot">Paid and active plans only</div>
+        </div>
+
+        <div class="panel stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Payments received</span>
+            <span class="stat-symbol">P</span>
+          </div>
+          <div class="stat-value" id="paymentsReceived">—</div>
+          <div class="stat-foot">Confirmed payments only · ETB</div>
+        </div>
+
+        <div class="panel stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Outstanding balance</span>
+            <span class="stat-symbol">B</span>
+          </div>
+          <div class="stat-value" id="outstandingBalance">—</div>
+          <div class="stat-foot">Unpaid amounts · ETB</div>
+        </div>
+  </div>
+
+
+
+  <div class="grid two-grid section-gap">
+    <div class="panel">
+      <div class="panel-heading">
+        <div><h2>Revenue received</h2><p class="panel-description">Only verified payments should appear here.</p></div>
+        <div class="period-tabs" id="revenueTabs">
+          <button class="period-tab active" data-period="24h">24H</button>
+          <button class="period-tab" data-period="7d">7D</button>
+          <button class="period-tab" data-period="month">Month</button>
+          <button class="period-tab" data-period="6m">6M</button>
+          <button class="period-tab" data-period="year">Year</button>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div class="empty-chart" id="revenueChart"><div><strong>No revenue data connected</strong><span>Connect real NURIVA payment records to display a revenue chart.</span></div></div>
+      </div>
+      <div class="divider"></div>
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+        <span class="panel-description" id="revenuePeriodLabel">Selected period: last 24 hours</span>
+        <span class="pill">Awaiting live data</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-heading"><div><h2>Recent system activity</h2><p class="panel-description">Real sign-ups, plan changes, payments and system events.</p></div><button class="btn" data-go="analytics">View analytics</button></div>
+      <div class="table-wrap"><table><thead><tr><th>ACTIVITY</th><th>CAFÉ</th><th>TIME</th><th>STATUS</th></tr></thead><tbody><tr><td colspan="4" class="table-empty">No activity loaded.<br>Real events will appear after backend integration.</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <div class="grid two-grid section-gap">
+    <div class="panel">
+      <div class="panel-heading"><div><h2>Payment status</h2><p class="panel-description">Confirmed payments compared with outstanding balances.</p></div></div>
+      <div class="payment-row">
+        <div class="ring"><div class="ring-center"><strong>—</strong><span>Paid</span></div></div>
+        <div class="payment-info"><h3>Payments received</h3><p>Confirmed transactions from café subscriptions.</p><span class="pill pill-green">Not connected</span></div>
+      </div>
+      <div class="divider"></div>
+      <div class="payment-row">
+        <div class="ring"><div class="ring-center"><strong>—</strong><span>Unpaid</span></div></div>
+        <div class="payment-info"><h3>Outstanding payments</h3><p>Balances due from cafés with unpaid subscriptions.</p><span class="pill pill-orange">Not connected</span></div>
+      </div>
+      <div class="notice">Payment totals and percentages remain blank until real payment records are connected.</div>
+    </div>
+    <div class="panel">
+      <div class="panel-heading"><div><h2>Attention required</h2><p class="panel-description">Items that may need administrator action.</p></div></div>
+      <div class="notice"><strong>Payment reminders</strong><br>Unpaid subscriptions will appear here when payment records are connected.</div>
+      <div class="divider"></div>
+      <div class="notice"><strong>Pending agreements</strong><br>Agreements awaiting owner review will appear here.</div>
+      <div class="divider"></div>
+      <div class="notice"><strong>New café registrations</strong><br>New registrations will appear here when connected.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page-cafes">
+  <div class="page-heading"><div><div class="eyebrow">Network management</div><h1>Café management</h1><p class="subtitle">Review café accounts, subscription status and onboarding progress.</p></div><button class="btn btn-primary" disabled>Add café</button></div>
+  <div class="grid stats-grid">
+    <div class="panel stat-card"><div class="stat-label">All cafés</div><div class="stat-value">—</div><div class="stat-foot">Live account count</div></div>
+    <div class="panel stat-card"><div class="stat-label">On trial</div><div class="stat-value">—</div><div class="stat-foot">Trial package status</div></div>
+    <div class="panel stat-card"><div class="stat-label">Paid</div><div class="stat-value">—</div><div class="stat-foot">Current paying cafés</div></div>
+    <div class="panel stat-card"><div class="stat-label">Expired</div><div class="stat-value">—</div><div class="stat-foot">Packages requiring attention</div></div>
+  </div>
+  <div class="panel section-gap"><div class="panel-heading"><div><h2>Registered cafés</h2><p class="panel-description">Records will come from the existing NURIVA system.</p></div><span class="pill">Live data pending</span></div><div class="table-wrap"><table><thead><tr><th>CAFÉ</th><th>OWNER</th><th>PLAN</th><th>SUBSCRIPTION</th><th>PAYMENT</th><th>ACTIONS</th></tr></thead>
+<tbody id="cafesTableBody"><tr><td colspan="6" class="table-empty">Loading café accounts...</td></tr></tbody></table></div></div>
+</section>
+
+
+
+</section>
+
+<section class="page" id="page-payments">
+  <div class="page-heading"><div><div class="eyebrow">Financial control</div><h1>Payments</h1><p class="subtitle">Track money received, balances due and subscription payment history.</p></div><button class="btn btn-primary" disabled>Record payment</button></div>
+  <div class="grid stats-grid">
+    <div class="panel stat-card"><div class="stat-label">Received · 24 hours</div><div class="stat-value">—</div><div class="stat-foot">Verified transactions · ETB</div></div>
+    <div class="panel stat-card"><div class="stat-label">Received · This month</div><div class="stat-value">—</div><div class="stat-foot">Verified transactions · ETB</div></div>
+    <div class="panel stat-card"><div class="stat-label">Outstanding</div><div class="stat-value">—</div><div class="stat-foot">Unpaid subscription balances</div></div>
+    <div class="panel stat-card"><div class="stat-label">Failed or disputed</div><div class="stat-value">—</div><div class="stat-foot">Requires review</div></div>
+  </div>
+  <div class="panel section-gap"><div class="panel-heading"><div><h2>Payment ledger</h2><p class="panel-description">Payment date, café, amount, reference and confirmation status.</p></div><button class="btn" disabled>Export records</button></div><div class="table-wrap"><table><thead><tr><th>DATE</th><th>CAFÉ</th><th>REFERENCE</th><th>AMOUNT</th><th>METHOD</th><th>STATUS</th></tr></thead><tbody><tr><td colspan="6" class="table-empty">No payment records loaded. Only actual payment data will be displayed.</td></tr></tbody></table></div></div>
+</section>
+
+<section class="page" id="page-agreements">
+  <div class="page-heading"><div><div class="eyebrow">Business documentation</div><h1>Agreements</h1><p class="subtitle">Create agreements, send them to café owners and retain an administrator record.</p></div><button class="btn btn-primary" disabled>Create agreement</button></div>
+  <div class="grid stats-grid">
+    <div class="panel stat-card"><div class="stat-label">All agreements</div><div class="stat-value">—</div><div class="stat-foot">Saved records</div></div>
+    <div class="panel stat-card"><div class="stat-label">Awaiting acceptance</div><div class="stat-value">—</div><div class="stat-foot">Sent to café owners</div></div>
+    <div class="panel stat-card"><div class="stat-label">Accepted</div><div class="stat-value">—</div><div class="stat-foot">Accepted agreement records</div></div>
+    <div class="panel stat-card"><div class="stat-label">Drafts</div><div class="stat-value">—</div><div class="stat-foot">Not yet sent</div></div>
+  </div>
+  <div class="panel section-gap"><div class="panel-heading"><div><h2>Agreement records</h2><p class="panel-description">Owners can review, accept, print and download; the administrator retains the saved record.</p></div></div><div class="table-wrap"><table><thead><tr><th>AGREEMENT</th><th>CAFÉ</th><th>CREATED</th><th>OWNER STATUS</th><th>ADMIN ACTION</th></tr></thead><tbody><tr><td colspan="5" class="table-empty">No agreements loaded. Agreement functions require backend integration.</td></tr></tbody></table></div></div>
+  <div class="notice section-gap"><strong>Planned owner workflow</strong><br>Owner opens the agreement, reviews the terms, accepts, prints or downloads a copy, then closes the owner view. The administrator retains the record.</div>
+</section>
+
+<section class="page" id="page-analytics">
+  <div class="page-heading"><div><div class="eyebrow">Performance intelligence</div><h1>Business analytics</h1><p class="subtitle">Compare business activity across matching periods using actual NURIVA data.</p></div><span class="pill">Awaiting live data</span></div>
+  <div class="grid three-grid">
+    <div class="panel"><div class="panel-heading"><div><h2>Today vs yesterday</h2><p class="panel-description">Daily business performance</p></div></div><div class="metric-placeholder">Comparison will appear when daily records are connected.</div></div>
+    <div class="panel"><div class="panel-heading"><div><h2>This week vs last week</h2><p class="panel-description">Weekly performance</p></div></div><div class="metric-placeholder">Comparison will appear when weekly records are connected.</div></div>
+    <div class="panel"><div class="panel-heading"><div><h2>This month vs last month</h2><p class="panel-description">Monthly performance</p></div></div><div class="metric-placeholder">Comparison will appear when monthly records are connected.</div></div>
+  </div>
+  <div class="grid two-grid section-gap">
+    <div class="panel"><div class="panel-heading"><div><h2>Subscription growth</h2><p class="panel-description">New, active, expired and renewed café accounts.</p></div></div><div class="empty-chart"><div><strong>No subscription history</strong><span>Connect registration and subscription events to build this chart.</span></div></div></div>
+    <div class="panel"><div class="panel-heading"><div><h2>Operational performance</h2><p class="panel-description">Track onboarding, renewals and service activity.</p></div></div><div class="comparison-list">
+      <div class="comparison-item"><div class="comparison-title"><span>Café onboarding</span><span>Waiting for data</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+      <div class="comparison-item"><div class="comparison-title"><span>Subscription renewals</span><span>Waiting for data</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+      <div class="comparison-item"><div class="comparison-title"><span>Payment collection</span><span>Waiting for data</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+      <div class="comparison-item"><div class="comparison-title"><span>Owner engagement</span><span>Waiting for data</span></div><div class="progress-track"><div class="progress-fill"></div></div></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="page" id="page-community">
+  <div class="page-heading"><div><div class="eyebrow">NURIVA network</div><h1>Owner community</h1><p class="subtitle">A private space where verified café owners can discuss operations and share experience.</p></div><span class="pill">Private community · Planned</span></div>
+  <div class="community-layout">
+    <div class="panel"><div class="panel-heading"><div><h2>Community spaces</h2><p class="panel-description">Owner-only discussion rooms.</p></div></div>
+      <div class="community-room active">General discussion</div><div class="community-room">Café operations</div><div class="community-room">Ideas and requests</div><div class="community-room">Announcements</div>
+      <div class="divider"></div><div class="notice">Only authenticated café owners and authorized NURIVA administrators should access this community.</div>
+    </div>
+    <div class="panel message-area"><div class="panel-heading"><div><h2 id="communityTitle">General discussion</h2><p class="panel-description">Owner-to-owner conversation</p></div><span class="pill">Access control required</span></div>
+      <div class="message-empty">Community messages are not connected yet.<br>Real messages will load after authentication and backend integration.</div>
+      <div class="message-compose"><input type="text" placeholder="Community posting will be enabled after integration..." disabled><button class="btn btn-primary" disabled>Send</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page-messages">
+  <div class="page-heading"><div><div class="eyebrow">Direct communication</div><h1>Private messages</h1><p class="subtitle">A private communication channel between café owners and the NURIVA administrator.</p></div></div>
+  <div class="grid two-grid">
+    <div class="panel"><div class="panel-heading"><div><h2>Conversations</h2><p class="panel-description">Authenticated owner conversations.</p></div></div><div class="table-wrap"><table><thead><tr><th>OWNER</th><th>CAFÉ</th><th>LAST MESSAGE</th></tr></thead><tbody><tr><td colspan="3" class="table-empty">No conversations loaded.</td></tr></tbody></table></div></div>
+    <div class="panel message-area"><div class="panel-heading"><div><h2>Conversation view</h2><p class="panel-description">Private messages and call controls.</p></div></div><div class="message-empty">Select an authenticated conversation to view messages.<br><br>Voice and video calls require secure signaling and permission controls.</div><div class="message-compose"><input type="text" placeholder="Connect backend to send messages..." disabled><button class="btn btn-primary" disabled>Send</button></div><div class="button-row" style="margin-top:12px"><button class="btn" disabled>Start voice call</button><button class="btn" disabled>Start video call</button></div></div>
+  </div>
+</section>
+
+<section class="page" id="page-settings">
+  <div class="page-heading"><div><div class="eyebrow">Configuration</div><h1>System settings</h1><p class="subtitle">Central administrator settings and connection configuration.</p></div></div>
+  <div class="grid two-grid">
+    <div class="panel"><div class="panel-heading"><div><h2>System identity</h2><p class="panel-description">Branding for the central administration interface.</p></div></div>
+      <div class="form-grid">
+        <div class="field"><label for="systemName">System name</label><input id="systemName" value="NURIVA Central"></div>
+        <div class="field"><label for="currency">Currency</label><select id="currency"><option value="ETB">ETB — Ethiopian birr</option></select></div>
+        <div class="field full"><label for="timezone">Display time zone</label><select id="timezone"><option value="local">Use browser's local time</option><option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option><option value="UTC">UTC</option></select></div>
+        <div class="field full"><button class="btn btn-primary" id="savePreferences">Save local preferences</button></div>
+      </div>
+      <p class="panel-description" id="settingsMessage" style="margin-top:12px">Preferences have not been saved.</p>
+    </div>
+    <div class="panel"><div class="panel-heading"><div><h2>Integration status</h2><p class="panel-description">Connection details will be configured during backend integration.</p></div></div>
+     <div class="payment-row">
+  <span>Existing NURIVA database</span>
+  <span class="pill pill-orange" id="databaseStatus">Checking status...</span>
+</div>
+      <div class="payment-row"><span>Payment records</span><span class="pill pill-orange">Not connected</span></div>
+          <div class="payment-row">
+        <span>Owner authentication</span>
+        <span class="pill pill-orange" id="ownerAuthStatus">Checking status...</span>
+      </div>
+
+
+      <div class="payment-row"><span>Community and messages</span><span class="pill pill-orange">Not connected</span></div>
+      <div class="divider"></div><div class="notice"><strong>Security note</strong><br>Database credentials, administrator passwords and session secrets must be configured on the server, never inside this HTML file.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><span>NURIVA Central · Administration interface</span><span>Frontend preview · Live business data not connected</span></footer>
+</main>
+
+                    <script>
+                    const navButtons = document.querySelectorAll(".nav button");
+                    const pages = document.querySelectorAll(".page");
+
+                    function openPage(name) {
+                      if (!document.getElementById("page-" + name)) return;
+                      pages.forEach(page => page.classList.toggle("active", page.id === "page-" + name));
+                      navButtons.forEach(button => button.classList.toggle("active", button.dataset.page === name));
+                      window.scrollTo({top: 0, behavior: "smooth"});
+                    }
+
+                    navButtons.forEach(button => {
+                      button.addEventListener("click", () => openPage(button.dataset.page));
+                    });
+
+                    document.querySelectorAll("[data-go]").forEach(button => {
+                      button.addEventListener("click", () => openPage(button.dataset.go));
+                    });
+
+
+
+        async function loadCentralStatus() {
+          const statusElement = document.getElementById("databaseStatus");
+          const totalElement = document.getElementById("totalBusinesses");
+          const activeElement = document.getElementById("activeBusinesses");
+
+          try {
+            const response = await fetch("/api/central/status", {
+              headers: { "Accept": "application/json" }
+            });
+
+            if (!response.ok) {
+              throw new Error(`Server returned ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (
+              data.digitalConnection !== "connected" ||
+              data.dataAvailable !== true ||
+              !data.businesses
+            ) {
+              throw new Error("Live business data is unavailable.");
+            }
+
+            totalElement.textContent = data.businesses.total;
+            activeElement.textContent =
+              `${data.businesses.active} active cafés`;
+
+            if (statusElement) {
+              statusElement.textContent = "Database connected";
+              statusElement.classList.remove("pill-orange");
+              statusElement.classList.add("pill-green");
+            }
+          } catch (error) {
+            totalElement.textContent = "—";
+            activeElement.textContent = "Live data unavailable";
+
+            if (statusElement) {
+              statusElement.textContent = "Connection unavailable";
+              statusElement.classList.remove("pill-green");
+              statusElement.classList.add("pill-orange");
+            }
+
+            console.error("Could not load NURIVA Central data:", error);
+          }
+        }
+
+
+
+        function updateClock() {
+          const zone = document.getElementById("timezone")?.value || "local";
+          const now = new Date();
+          const timeOptions = {hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false};
+          const dateOptions = {weekday:"long",day:"numeric",month:"long",year:"numeric"};
+
+          if (zone !== "local") {
+            timeOptions.timeZone = zone;
+            dateOptions.timeZone = zone;
+          }
+
+          try {
+            document.getElementById("clock").textContent =
+              new Intl.DateTimeFormat("en-GB", timeOptions).format(now);
+            document.getElementById("clockDate").textContent =
+              new Intl.DateTimeFormat("en-GB", dateOptions).format(now);
+          } catch (error) {
+            document.getElementById("clock").textContent = now.toLocaleTimeString();
+            document.getElementById("clockDate").textContent = now.toLocaleDateString();
+          }
+        }
+        
+        
+        
+		async function loadCentralCafes() {
+    const tableBody = document.getElementById("cafesTableBody");
+
+    if (!tableBody) return;
+
+    tableBody.innerHTML =
+        '<tr><td colspan="6" class="table-empty">Loading café accounts...</td></tr>';
+
+    try {
+        const response = await fetch("/api/central/cafes");
+
+        if (!response.ok) {
+            throw new Error("Could not load café accounts.");
+        }
+
+        const result = await response.json();
+
+        if (!result.dataAvailable || !Array.isArray(result.cafes)) {
+            throw new Error("Café account data is unavailable.");
+        }
+
+        if (result.cafes.length === 0) {
+            tableBody.innerHTML =
+                '<tr><td colspan="6" class="table-empty">No café accounts found.</td></tr>';
+            return;
+        }
+
+        tableBody.innerHTML = result.cafes.map(cafe => {
+            const name = String(cafe.name || "Unnamed café");
+            const slug = String(cafe.slug || "—");
+            const status = Number(cafe.active) === 1 ? "Active" : "Inactive";
+            const registered = cafe.created_at
+                ? new Date(cafe.created_at).toLocaleDateString()
+                : "—";
+
+            const escapeHtml = value =>
+                value.replace(/[&<>"']/g, character => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[character]);
+
+            return `
+                <tr>
+                    <td>${escapeHtml(name)}</td>
+                    <td>Not available</td>
+                    <td>Not configured</td>
+                    <td>Not configured</td>
+                    <td>Not available</td>
+                    <td title="Account ID: ${Number(cafe.id)}">
+                        ${escapeHtml(status)} · ${escapeHtml(registered)}
+                        <br><small>${escapeHtml(slug)}</small>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+        const headingPill = document.querySelector(
+            ".panel-heading .pill"
+        );
+
+        if (headingPill) {
+            headingPill.textContent = "Live account data";
+        }
+    } catch (error) {
+        console.error("Central café loading failed:", error);
+
+        tableBody.innerHTML =
+            '<tr><td colspan="6" class="table-empty">Could not load café accounts. Please refresh.</td></tr>';
+    }
+}
+
+
+        updateClock();
+        loadCentralStatus();
+        loadCentralCafes();
+        setInterval(updateClock, 1000);
+
+        const periodLabels = {
+          "24h":"last 24 hours",
+          "7d":"last 7 days",
+          "month":"current month",
+          "6m":"last 6 months",
+          "year":"current year"
+        };
+
+        document.querySelectorAll("#revenueTabs .period-tab").forEach(button => {
+          button.addEventListener("click", () => {
+            document.querySelectorAll("#revenueTabs .period-tab").forEach(tab => {
+              tab.classList.toggle("active", tab === button);
+            });
+            document.getElementById("revenuePeriodLabel").textContent =
+              "Selected period: " + periodLabels[button.dataset.period];
+          });
+        });
+
+        document.querySelectorAll(".community-room").forEach(room => {
+          room.addEventListener("click", () => {
+            document.querySelectorAll(".community-room").forEach(item => {
+              item.classList.toggle("active", item === room);
+            });
+            document.getElementById("communityTitle").textContent = room.textContent.trim();
+          });
+        });
+
+document.getElementById("savePreferences").addEventListener("click", () => {
+  const name = document.getElementById("systemName").value.trim();
+  const message = document.getElementById("settingsMessage");
+
+  if (!name) {
+    message.textContent = "Please enter a system name.";
+    return;
+  }
+
+  document.title = name;
+  document.querySelector(".brand-name").textContent = name.replace(" Central", "").toUpperCase();
+  message.textContent = "Interface preferences applied locally. Server settings are not connected.";
+  updateClock();
+});
+
+document.getElementById("timezone").addEventListener("change", updateClock);
+
+          async function updateOwnerAuthStatus() {
+  const statusElement = document.getElementById("ownerAuthStatus");
+
+  try {
+    const response = await fetch("/api/owner-auth/status", {
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Status request failed");
+    }
+
+    const status = await response.json();
+
+    if (!status.configured) {
+      statusElement.textContent = "Configuration missing";
+      statusElement.className = "pill pill-orange";
+    } else if (status.authenticated) {
+      statusElement.textContent = "Connected";
+      statusElement.className = "pill pill-green";
+    } else {
+      statusElement.textContent = "Configured · Login required";
+      statusElement.className = "pill pill-orange";
+    }
+  } catch {
+    statusElement.textContent = "Status unavailable";
+    statusElement.className = "pill pill-orange";
+  }
+}
+
+updateOwnerAuthStatus();
+
+
+        document.getElementById("refreshPreview").addEventListener("click", () => {
+          updateClock();
+          loadCentralStatus();
+        loadCentralCafes();
+        });
+
+        
+const logoutForm = document.getElementById("logoutForm");
+const logoutTokenInput = document.getElementById("logoutCsrfToken");
+const logoutButton = document.getElementById("logoutButton");
+
+if (logoutForm && logoutTokenInput && logoutButton) {
+  fetch("/api/logout-csrf", {
+    credentials: "same-origin",
+    cache: "no-store"
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Unable to initialize logout protection.");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (!data.token) {
+        throw new Error("Logout token was not provided.");
+      }
+
+      logoutTokenInput.value = data.token;
+      logoutButton.disabled = false;
+    })
+    .catch(() => {
+      logoutButton.disabled = true;
+      logoutButton.textContent = "Reload to log out";
+    });
+}
+
+
+</script>
+</body>
+</html>
+
+
