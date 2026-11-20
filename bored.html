@@ -1,0 +1,1510 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Memory</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 35px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #edf1e9, #dce8df);
+            font-family: 'DM Sans', sans-serif;
+            color: #294638;
+            text-align: center;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 750px;
+            padding: 35px 20px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.82);
+            box-shadow: 0 15px 40px rgba(35,58,45,0.1);
+            animation: appear 0.4s ease;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .image {
+            width: min(500px, 100%);
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        button {
+            border: none;
+            border-radius: 30px;
+            padding: 13px 24px;
+            margin: 8px;
+            background: #315e4b;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #1f4032;
+            transform: translateY(-2px);
+        }
+
+        .button-1 {
+            background: #e9ded5;
+            color: #59473f;
+        }
+
+        .button-2 {
+            background: #c5d5c8;
+            color: #244c3c;
+        }
+
+        #message,
+        #anger,
+        #oppen,
+        #result {
+            color: #52745e;
+            font-weight: 600;
+        }
+
+        .input {
+            width: min(350px, 100%);
+            padding: 15px 20px;
+            border: 1px solid #c8d6ca;
+            border-radius: 30px;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .input:focus {
+            border-color: #52745e;
+        }
+
+        #gallery {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(35,58,45,0.09);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .photo-card p {
+            font-family: 'Playfair Display', serif;
+            color: #315e4b;
+        }
+
+        /* OUR MEMORY CARD */
+
+        .memory-card {
+            width: 100%;
+            max-width: 460px;
+            padding: 12px;
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 10px 30px rgba(35,58,45,0.12);
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .memory-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            margin: 17px 0 5px;
+        }
+
+        .memory-subtitle {
+            color: #829487;
+            font-size: 13px;
+            margin: 0 0 12px;
+        }
+
+        .audio-error {
+            color: #a34d4d;
+            font-size: 13px;
+        }
+
+        .song-player {
+            margin: 14px 4px 4px;
+            padding: 12px;
+            border: 1px solid #dde7df;
+            border-radius: 16px;
+            background: #f7faf7;
+        }
+
+        .song-player audio {
+            display: none;
+        }
+
+        .song-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .song-play {
+            flex: 0 0 42px;
+            width: 42px;
+            height: 42px;
+            margin: 0;
+            padding: 0;
+            border-radius: 50%;
+            background: #315e4b;
+            line-height: 42px;
+        }
+
+        .song-track {
+            flex: 1;
+            width: 100%;
+            height: 5px;
+            margin: 0;
+            accent-color: #315e4b;
+            cursor: pointer;
+        }
+
+        .song-time {
+            display: flex;
+            justify-content: space-between;
+            margin: 6px 2px 0 52px;
+            color: #7b8a80;
+            font-size: 11px;
+        }
+
+        .song-upload {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: 1px solid #cfdacf;
+            border-radius: 999px;
+            color: #315e4b;
+            background: white;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .song-upload input {
+            display: none;
+        }
+
+        @media (max-width: 500px) {
+            .screen {
+                padding: 25px 15px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .memory-card img {
+                height: 250px;
+            }
+        }
+
+        /* Romantic couples theme */
+        :root {
+            color-scheme: light;
+            --rose: #b94f68;
+            --deep-rose: #8f354e;
+            --soft-rose: #f7e6e9;
+            --ink: #44313a;
+        }
+
+        body {
+            position: relative;
+            isolation: isolate;
+            padding: clamp(20px, 5vw, 56px) 16px;
+            color: var(--ink);
+            background:
+                radial-gradient(ellipse at 12% 12%, #f5d6dc 0, transparent 34%),
+                radial-gradient(ellipse at 88% 82%, #e8d9ef 0, transparent 36%),
+                linear-gradient(135deg, #fff8f4, #f8eef2 55%, #f1edf7);
+        }
+
+        body::before,
+        body::after {
+            position: fixed;
+            z-index: -1;
+            color: #c8768a;
+            opacity: .14;
+            pointer-events: none;
+            font-size: clamp(100px, 18vw, 220px);
+            line-height: 1;
+        }
+
+        body::before {
+            content: "♡";
+            top: 4%;
+            left: 3%;
+            transform: rotate(-15deg);
+        }
+
+        body::after {
+            content: "♡";
+            right: 4%;
+            bottom: 3%;
+            transform: rotate(12deg);
+        }
+
+        .screen {
+            position: relative;
+            overflow: hidden;
+            max-width: 780px;
+            padding: clamp(28px, 6vw, 58px) clamp(18px, 5vw, 48px);
+            border: 1px solid rgba(185, 79, 104, .14);
+            border-radius: 30px;
+            background: rgba(255, 253, 251, .88);
+            box-shadow: 0 28px 80px rgba(104, 57, 78, .13);
+            backdrop-filter: blur(12px);
+        }
+
+        .screen::before {
+            position: absolute;
+            top: 0;
+            left: 12%;
+            width: 76%;
+            height: 3px;
+            border-radius: 0 0 10px 10px;
+            background: linear-gradient(90deg, transparent, #d98a9c, #c8a9d3, transparent);
+            content: "";
+        }
+
+        .screen.active {
+            animation: romantic-appear .55s cubic-bezier(.2, .75, .25, 1) both;
+        }
+
+        @keyframes romantic-appear {
+            from { opacity: 0; transform: translateY(14px) scale(.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .image {
+            width: min(520px, 100%);
+            height: clamp(210px, 42vw, 330px);
+            border: 7px solid white;
+            border-radius: 24px;
+            box-shadow: 0 15px 38px rgba(92, 54, 68, .18);
+        }
+
+        h2 {
+            margin: 20px 0 14px;
+            color: #713e51;
+            font-size: clamp(27px, 5vw, 38px);
+            line-height: 1.2;
+            letter-spacing: -.5px;
+        }
+
+        p {
+            color: #765d67;
+        }
+
+        button {
+            min-height: 46px;
+            padding: 13px 23px;
+            border: 1px solid transparent;
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+            box-shadow: 0 8px 18px rgba(143, 53, 78, .2);
+            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #a8445d, #783047);
+            box-shadow: 0 12px 24px rgba(143, 53, 78, .25);
+            filter: saturate(1.08);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:focus-visible,
+        .input:focus-visible,
+        .song-track:focus-visible,
+        .song-upload:focus-within {
+            outline: 3px solid rgba(185, 79, 104, .35);
+            outline-offset: 3px;
+        }
+
+        .button-1 {
+            border-color: #ead9dc;
+            color: #725560;
+            background: #f5e8e9;
+            box-shadow: 0 7px 16px rgba(123, 80, 94, .1);
+        }
+
+        .button-1:hover {
+            color: #633d4a;
+            background: #eedbdd;
+        }
+
+        .button-2 {
+            color: #60476a;
+            background: linear-gradient(135deg, #eadcf0, #d7c4e1);
+            box-shadow: 0 7px 16px rgba(105, 75, 120, .15);
+        }
+
+        .button-2:hover {
+            background: linear-gradient(135deg, #dfcbe8, #cdb3d9);
+        }
+
+        #message,
+        #anger,
+        #oppen,
+        #result {
+            color: var(--deep-rose);
+        }
+
+        .input {
+            min-height: 48px;
+            border: 1px solid #e8cfd7;
+            background: rgba(255, 255, 255, .86);
+            box-shadow: 0 5px 16px rgba(89, 54, 69, .05);
+        }
+
+        .input:focus {
+            border-color: #bf7186;
+            box-shadow: 0 0 0 4px rgba(185, 79, 104, .1);
+        }
+
+        #gallery {
+            align-items: start;
+            gap: 22px;
+        }
+
+        .photo-card,
+        .memory-card {
+            overflow: hidden;
+            border: 1px solid rgba(185, 79, 104, .12);
+            border-radius: 22px;
+            background: #fffdfb;
+            box-shadow: 0 14px 36px rgba(104, 57, 78, .12);
+            transition: transform .22s ease, box-shadow .22s ease;
+        }
+
+        .photo-card:hover,
+        .memory-card:hover {
+            box-shadow: 0 20px 44px rgba(104, 57, 78, .17);
+            transform: translateY(-4px);
+        }
+
+        .photo-card {
+            padding: 11px 11px 5px;
+        }
+
+        .photo-card img,
+        .memory-card img {
+            border-radius: 15px;
+        }
+
+        .photo-card p {
+            color: #713e51;
+        }
+
+        .memory-card {
+            padding: 13px;
+        }
+
+        .memory-title {
+            color: #713e51;
+            font-size: 24px;
+        }
+
+        .memory-subtitle {
+            color: #967680;
+        }
+
+        .song-player {
+            border-color: #f0dce2;
+            background: linear-gradient(145deg, #fff8f8, #f8f0f7);
+        }
+
+        .song-play {
+            background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+        }
+
+        .song-play:hover {
+            background: linear-gradient(135deg, #a8445d, #783047);
+        }
+
+        .song-track {
+            accent-color: var(--rose);
+        }
+
+        .song-upload {
+            border-color: #ead5dc;
+            color: #8f4359;
+            background: #fffdfb;
+        }
+
+        .song-upload:hover {
+            border-color: #c78698;
+            background: #fff5f6;
+        }
+
+        .audio-error {
+            color: #a13e55;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 18px 12px;
+            }
+
+            .screen {
+                border-radius: 24px;
+            }
+
+            .photo-card:hover,
+            .memory-card:hover {
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
+        #gallery.photo-gallery {
+            display: flex;
+            justify-content: flex-start;
+            gap: 18px;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            padding: 18px 8px 26px;
+            scroll-snap-type: x mandatory;
+            scrollbar-color: #c78698 #f6e8ec;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .photo-gallery::after {
+            flex: 0 0 1px;
+            content: "";
+        }
+
+        .photo-gallery .photo-card {
+            flex: 0 0 min(270px, 76vw);
+            scroll-snap-align: center;
+        }
+
+        .photo-gallery .photo-card img {
+            height: clamp(250px, 58vw, 340px);
+        }
+
+        #gallery.memory-gallery {
+            display: grid;
+            justify-items: center;
+        }
+
+        .memory-gallery .memory-card {
+            width: min(100%, 470px);
+            margin-inline: auto;
+            padding: 16px;
+            text-align: center;
+        }
+
+        #gallery.memory-gallery {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .memory-gallery .memory-card img {
+            height: clamp(260px, 65vw, 370px);
+            object-position: center;
+        }
+
+        .memory-gallery .song-player {
+            width: 100%;
+            margin: 18px auto 4px;
+            padding: 16px;
+        }
+
+        .memory-gallery .song-upload {
+            margin-top: 14px;
+        }
+
+        .love-overlay[hidden],
+        .love-response[hidden] {
+            display: none;
+        }
+
+        .love-overlay {
+            position: fixed;
+            z-index: 20;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(55, 33, 45, .54);
+            backdrop-filter: blur(9px);
+            animation: overlay-in .25s ease both;
+        }
+
+        @keyframes overlay-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .love-dialog {
+            width: min(460px, 100%);
+            max-height: min(90vh, 760px);
+            overflow-y: auto;
+            padding: clamp(26px, 6vw, 42px);
+            border: 1px solid rgba(185, 79, 104, .2);
+            border-radius: 30px;
+            background: linear-gradient(155deg, #fffdfb, #fff4f5);
+            box-shadow: 0 30px 90px rgba(48, 24, 37, .3);
+            animation: dialog-in .35s cubic-bezier(.2, .75, .25, 1) both;
+        }
+
+        @keyframes dialog-in {
+            from { opacity: 0; transform: translateY(14px) scale(.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .love-dialog h2 {
+            margin-top: 0;
+        }
+
+        .love-dialog p {
+            margin: 10px 0 22px;
+        }
+
+        .love-choices {
+            display: flex;
+            min-height: 100px;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .love-choices button {
+            margin: 4px;
+        }
+
+        .love-yes {
+            background: linear-gradient(135deg, #bb526b, #8c3450);
+        }
+
+        .love-no {
+            --no-scale: 1;
+            transform: scale(var(--no-scale));
+            transform-origin: center;
+            background: #8d7b81;
+            box-shadow: 0 8px 18px rgba(86, 66, 75, .16);
+        }
+
+        .love-no:hover {
+            background: #78676d;
+            transform: scale(var(--no-scale));
+        }
+
+        .love-no:active {
+            transform: scale(var(--no-scale));
+        }
+
+        .no-love-message {
+            min-height: 26px;
+            margin: 8px 0 0 !important;
+            color: #713e51 !important;
+            font-weight: 700;
+        }
+
+        .video-frame {
+            position: relative;
+            width: min(520px, 100%);
+            margin: 0 auto 22px;
+            border: 7px solid white;
+            border-radius: 24px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 35%, #fff 0, transparent 34%),
+                linear-gradient(145deg, #f8dce2, #eadcf0);
+            box-shadow: 0 14px 36px rgba(104, 57, 78, .18);
+        }
+
+        .memory-video {
+            display: block;
+            width: 100%;
+            max-height: 55vh;
+            aspect-ratio: 9 / 16;
+            object-fit: contain;
+            background: #241a20;
+        }
+
+        .video-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: grid;
+            width: 76px;
+            height: 76px;
+            place-items: center;
+            margin: 0;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, .8);
+            border-radius: 50%;
+            background: rgba(143, 53, 78, .92);
+            box-shadow: 0 8px 26px rgba(48, 24, 37, .3);
+            transform: translate(-50%, -50%);
+        }
+
+        .video-play-button:hover {
+            background: #783047;
+            transform: translate(-50%, -50%) scale(1.06);
+        }
+
+        .video-play-button:focus-visible {
+            outline: 3px solid white;
+            outline-offset: 4px;
+        }
+
+        .video-play-icon {
+            width: 0;
+            height: 0;
+            margin-left: 5px;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 19px solid white;
+        }
+
+        .video-frame.is-playing .video-play-button {
+            display: none;
+        }
+
+        .video-error {
+            margin: 12px 0 0 !important;
+            color: #a13e55 !important;
+            font-size: 13px;
+        }
+
+        .owner-qr-panel[hidden],
+        .qr-download[hidden] {
+            display: none;
+        }
+
+        .owner-qr-panel {
+            max-width: 780px;
+        }
+
+        .owner-qr-panel h2 {
+            margin-top: 0;
+        }
+
+        .owner-qr-controls {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .qr-heart-frame {
+            position: relative;
+            width: min(320px, 100%);
+            margin: 20px auto;
+            padding: 18px;
+            border: 2px solid #d98a9c;
+            border-radius: 32px;
+            background: #fff;
+            box-shadow: 0 14px 36px rgba(104, 57, 78, .16);
+        }
+
+        .qr-heart-frame::before {
+            position: absolute;
+            top: -19px;
+            left: 50%;
+            padding: 0 10px;
+            color: #b94f68;
+            background: #fffdfb;
+            content: "♡";
+            font-size: 30px;
+            line-height: 1;
+            transform: translateX(-50%);
+        }
+
+        .qr-output {
+            width: 100%;
+            min-height: 250px;
+        }
+
+        .qr-output canvas,
+        .qr-output img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .qr-heart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: grid;
+            width: 48px;
+            height: 48px;
+            place-items: center;
+            border: 4px solid white;
+            border-radius: 50%;
+            color: #b94f68;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(68, 49, 58, .2);
+            font-size: 27px;
+            line-height: 1;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .qr-download {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 11px 18px;
+            border: 1px solid #ead5dc;
+            border-radius: 30px;
+            color: #8f4359;
+            background: #fffdfb;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .love-close {
+            margin-top: 10px;
+            background: #8d7b81;
+        }
+
+        @media (max-width: 500px) {
+            .love-dialog {
+                border-radius: 24px;
+            }
+
+            .love-choices {
+                gap: 8px;
+            }
+
+            .love-dialog {
+                width: 100%;
+                max-height: 92dvh;
+                padding: 24px 18px;
+            }
+
+            .video-frame {
+                padding: 4px;
+                border-width: 4px;
+            }
+
+            .owner-qr-controls .input,
+            .owner-qr-controls button {
+                width: 100%;
+            }
+
+            .qr-heart-frame {
+                width: min(300px, 100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FIRST SCREEN -->
+
+    <div id="first-page" class="screen active">
+
+        <img class="image" src="bored-1.png" alt="">
+
+        <h2>Wanna see what's inside?</h2>
+
+        <button onclick="showMessage()" class="button-1">
+            Nah 🙄
+        </button>
+
+        <p id="message"></p>
+
+        <button onclick="showText()" class="button-2">
+            Fine open 🫩
+        </button>
+
+        <p id="anger"></p>
+
+        <button onclick="openNext()">
+            Yes sweetie 🥹
+        </button>
+
+    </div>
+
+
+    <!-- SECOND SCREEN -->
+
+    <div id="next-page" class="screen">
+
+        <h2>Are you excited to see?</h2>
+
+        <button onclick="openGallery()">
+            YEAHHHHHHHH
+        </button>
+
+        <button onclick="openAfter()">
+            Not at alllll
+        </button>
+
+        <p id="oppen"></p>
+
+    </div>
+
+
+    <!-- GALLERY SCREEN -->
+
+    <div id="close" class="screen">
+
+        <h2>Our Little World</h2>
+
+        <p>Search us or me 🥹</p>
+
+        <input
+            class="input"
+            id="search"
+            placeholder="Search what you want"
+        >
+
+        <button onclick="searchPhoto()">
+            Search
+        </button>
+
+        <p id="result"></p>
+
+        <div id="gallery"></div>
+
+    </div>
+
+    <section class="screen owner-qr-panel" id="ownerQrPanel" aria-labelledby="ownerQrTitle" hidden>
+        <h2 id="ownerQrTitle">Your heart QR code ♡</h2>
+        <p>After your page is hosted, paste its public HTTPS link here. Guests can scan the code to open the webpage; this owner panel stays hidden from the normal page. The code keeps a square scan pattern with a heart center so it remains readable.</p>
+        <div class="owner-qr-controls">
+            <input class="input" id="qrPageUrl" type="url" placeholder="https://your-page.example" aria-label="Public webpage URL">
+            <button id="generateQr" type="button">Create heart QR</button>
+        </div>
+        <p id="qrMessage" role="status" aria-live="polite">The webpage is not hosted yet, so a shareable QR code cannot be made until you have its public URL.</p>
+        <div class="qr-heart-frame" id="qrHeartFrame" hidden>
+            <div class="qr-output" id="qrOutput"></div>
+            <span class="qr-heart-center" aria-hidden="true">♥</span>
+        </div>
+        <a class="qr-download" id="qrDownload" download="our-heart-qr.png" hidden>Download your QR code ♡</a>
+    </section>
+
+    <div class="love-overlay" id="loveOverlay" hidden>
+        <section class="love-dialog" role="dialog" aria-modal="true" aria-labelledby="loveTitle">
+            <div id="loveQuestion">
+                <h2 id="loveTitle">Do you love me? 💗</h2>
+                <p>One honest answer, from the heart.</p>
+                <div class="love-choices">
+                    <button class="love-yes" id="loveYes" type="button">I love you 💕</button>
+                    <button class="love-no" id="loveNo" type="button">I don't love you</button>
+                </div>
+                <p class="no-love-message" id="noLoveMessage" aria-live="polite"></p>
+            </div>
+            <div class="love-response" id="loveResponse" hidden>
+                <div class="video-frame" id="videoFrame">
+                    <video class="memory-video" id="memoryVideo" playsinline preload="none">
+                        <source src="./our-video.mp4" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                    <button class="video-play-button" id="videoPlayButton" type="button" aria-label="Play our video">
+                        <span class="video-play-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <p class="video-error" id="videoError" role="status" hidden></p>
+                <h2>I love you too, my sweetheart 💖</h2>
+                <p>You make my little world feel like home.</p>
+                <button class="love-close" id="closeLove" type="button">Keep our memory ♡</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="./our-video-data.js"></script>
+
+    <script>
+
+        // FIRST SCREEN MESSAGES
+
+        function showMessage() {
+            document.querySelector('#message').textContent =
+                "Well WHATTT 😕";
+        }
+
+        function showText() {
+            document.querySelector('#anger').textContent =
+                "YOU BETTER BE KIDDING LIKE WHATTTTTT 🫩";
+        }
+
+
+        // OPEN SECOND SCREEN
+
+        function openNext() {
+            document.querySelector('#first-page').classList.remove('active');
+            document.querySelector('#next-page').classList.add('active');
+        }
+
+
+        // OPEN GALLERY SCREEN
+
+        function openGallery() {
+            document.querySelector('#next-page').classList.remove('active');
+            document.querySelector('#close').classList.add('active');
+        }
+
+
+        // NOT AT ALL MESSAGE
+
+        function openAfter() {
+            document.querySelector('#oppen').textContent =
+                "YOU DON'T KNOW WHAT YOU LOSE 😭";
+        }
+
+
+        // SEARCH PHOTOS
+
+        function searchPhoto() {
+
+            const search = document.querySelector('#search').value
+                .trim()
+                .toLowerCase();
+
+            const result = document.querySelector('#result');
+            const gallery = document.querySelector('#gallery');
+
+            gallery.innerHTML = '';
+            gallery.className = '';
+
+            if (search === 'me') {
+                gallery.classList.add('photo-gallery');
+
+                const photos = [
+                    'me-photo.png',
+                    'me-photo2.png',
+                    'me-photo3.png'
+                ];
+
+                result.textContent = 'You found yourself🤭! Swipe or scroll to see every memory. 🥹';
+
+                photos.forEach(function(photo) {
+
+                    const card = document.createElement('div');
+                    card.className = 'photo-card';
+
+                    const image = document.createElement('img');
+                    image.src = photo;
+                    image.alt = 'My photo';
+
+                    const caption = document.createElement('p');
+                    caption.textContent = 'A little memory ♡';
+
+                    card.appendChild(image);
+                    card.appendChild(caption);
+
+                    gallery.appendChild(card);
+
+                });
+
+            } else if (search === 'us') {
+
+                result.textContent = 'Our memories ❤️';
+                gallery.classList.add('memory-gallery');
+
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+
+                // OUR PICTURE
+
+                const image = document.createElement('img');
+                image.src = 'us.png';
+                image.alt = 'Our picture';
+
+                // SONG TITLE
+
+                const title = document.createElement('p');
+                title.className = 'memory-title';
+                title.textContent = 'Our song ♡';
+
+                const subtitle = document.createElement('p');
+                subtitle.className = 'memory-subtitle';
+                subtitle.textContent = 'A little melody for us';
+
+                // AUDIO PLAYER
+
+                const player = document.createElement('div');
+                player.className = 'song-player';
+
+                const music = document.createElement('audio');
+                music.loop = false;
+                music.preload = 'auto';
+                music.src = './our-song.mp3';
+
+                const playerRow = document.createElement('div');
+                playerRow.className = 'song-row';
+
+                const playButton = document.createElement('button');
+                playButton.className = 'song-play';
+                playButton.type = 'button';
+                playButton.textContent = '▶';
+                playButton.setAttribute('aria-label', 'Play our song');
+                playButton.disabled = true;
+
+                const track = document.createElement('input');
+                track.className = 'song-track';
+                track.type = 'range';
+                track.min = '0';
+                track.max = '100';
+                track.value = '0';
+                track.setAttribute('aria-label', 'Song position');
+
+                const time = document.createElement('div');
+                time.className = 'song-time';
+                time.innerHTML = '<span class="current-time">0:00</span><span class="duration">0:00</span>';
+
+                const uploadLabel = document.createElement('label');
+                uploadLabel.className = 'song-upload';
+                uploadLabel.innerHTML = 'Choose another song';
+
+                const upload = document.createElement('input');
+                upload.type = 'file';
+                upload.accept = 'audio/*';
+                uploadLabel.appendChild(upload);
+
+                const errorMessage = document.createElement('p');
+                errorMessage.className = 'audio-error';
+                errorMessage.textContent = '';
+
+                let uploadedSong = null;
+                let localSongUrl = null;
+
+                function formatTime(seconds) {
+                    if (!Number.isFinite(seconds)) return '0:00';
+                    const minutes = Math.floor(seconds / 60);
+                    const remaining = Math.floor(seconds % 60).toString().padStart(2, '0');
+                    return minutes + ':' + remaining;
+                }
+
+                music.addEventListener('loadedmetadata', function() {
+                    clearTimeout(errorTimer);
+                    playButton.disabled = false;
+                    time.querySelector('.duration').textContent = formatTime(music.duration);
+                    errorMessage.textContent = uploadedSong ? 'Your chosen song is ready.' : '';
+                });
+
+                music.addEventListener('canplay', function() {
+                    clearTimeout(errorTimer);
+                    playButton.disabled = false;
+                });
+
+                music.addEventListener('timeupdate', function() {
+                    time.querySelector('.current-time').textContent = formatTime(music.currentTime);
+                    track.value = music.duration
+                        ? (music.currentTime / music.duration) * 100
+                        : 0;
+                });
+
+                music.addEventListener('play', function() {
+                    playButton.textContent = '❚❚';
+                    playButton.setAttribute('aria-label', 'Pause our song');
+                });
+
+                music.addEventListener('pause', function() {
+                    playButton.textContent = '▶';
+                    playButton.setAttribute('aria-label', 'Play our song');
+                });
+
+                music.addEventListener('ended', function() {
+                    playButton.textContent = '▶';
+                    showLoveQuestion();
+                });
+
+                let errorTimer = null;
+                music.addEventListener('error', function() {
+                    if (uploadedSong) return;
+
+                    clearTimeout(errorTimer);
+                    errorTimer = setTimeout(function() {
+                        if (music.readyState === 0) {
+                            playButton.disabled = true;
+                            errorMessage.textContent =
+                                'Could not load our-song.mp3. The file may be missing or unsupported.';
+                        }
+                    }, 800);
+                });
+
+                playButton.addEventListener('click', function() {
+                    if (music.paused) {
+                        music.play().catch(function() {
+                            errorMessage.textContent =
+                                'The browser blocked playback. Tap play again.';
+                        });
+                    } else {
+                        music.pause();
+                    }
+                });
+
+                track.addEventListener('input', function() {
+                    if (music.duration) {
+                        music.currentTime = (Number(track.value) / 100) * music.duration;
+                    }
+                });
+
+                upload.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    if (uploadedSong) URL.revokeObjectURL(uploadedSong);
+                    uploadedSong = URL.createObjectURL(file);
+                    music.pause();
+                    music.src = uploadedSong;
+                    music.load();
+                    track.value = 0;
+                    time.querySelector('.current-time').textContent = '0:00';
+                    playButton.disabled = false;
+                    errorMessage.textContent = 'Loaded: ' + file.name;
+                });
+
+                fetch('./our-song.mp3', { cache: 'no-store' })
+                    .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('HTTP ' + response.status);
+                        }
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        if (uploadedSong) return;
+
+                        if (localSongUrl) URL.revokeObjectURL(localSongUrl);
+                        localSongUrl = URL.createObjectURL(
+                            new Blob([blob], { type: 'audio/mpeg' })
+                        );
+                        music.pause();
+                        music.src = localSongUrl;
+                        music.load();
+                    })
+                    .catch(function() {
+                        if (!uploadedSong) {
+                            errorMessage.textContent =
+                                'Could not load the local our-song.mp3 file.';
+                        }
+                    });
+
+                playerRow.appendChild(playButton);
+                playerRow.appendChild(track);
+                player.appendChild(music);
+                player.appendChild(playerRow);
+                player.appendChild(time);
+                player.appendChild(uploadLabel);
+
+                card.appendChild(image);
+                card.appendChild(title);
+                card.appendChild(subtitle);
+                card.appendChild(player);
+                card.appendChild(errorMessage);
+
+                gallery.appendChild(card);
+
+                music.load();
+
+            } else {
+
+                result.textContent = 'Nothing found 😭';
+
+            }
+
+        }
+
+        const loveOverlay = document.querySelector('#loveOverlay');
+        const loveQuestion = document.querySelector('#loveQuestion');
+        const loveResponse = document.querySelector('#loveResponse');
+        const loveNo = document.querySelector('#loveNo');
+        const noLoveMessage = document.querySelector('#noLoveMessage');
+        let noLoveAttempts = 0;
+
+        function showLoveQuestion() {
+            loveQuestion.hidden = false;
+            loveResponse.hidden = true;
+            loveNo.style.setProperty('--no-scale', '1');
+            loveNo.disabled = false;
+            noLoveAttempts = 0;
+            noLoveMessage.textContent = '';
+            loveOverlay.hidden = false;
+            document.querySelector('#loveYes').focus();
+        }
+
+        document.querySelector('#loveYes').addEventListener('click', function() {
+            loveQuestion.hidden = true;
+            loveResponse.hidden = false;
+            document.querySelector('#closeLove').focus();
+        });
+
+        loveNo.addEventListener('click', function() {
+            noLoveAttempts += 1;
+            noLoveMessage.textContent = 'Be serious for a second. You know I love you. 💗';
+            const scale = Math.max(0.28, 1 - noLoveAttempts * 0.16);
+            loveNo.style.setProperty('--no-scale', scale.toFixed(2));
+        });
+
+        document.querySelector('#closeLove').addEventListener('click', function() {
+            loveOverlay.hidden = true;
+            if (playbackCheckTimer !== null) {
+                clearTimeout(playbackCheckTimer);
+                playbackCheckTimer = null;
+            }
+            memoryVideo.pause();
+        });
+
+        const memoryVideo = document.querySelector('#memoryVideo');
+        const videoFrame = document.querySelector('#videoFrame');
+        const videoPlayButton = document.querySelector('#videoPlayButton');
+        const videoError = document.querySelector('#videoError');
+        let playbackCheckTimer = null;
+        let playbackStarted = false;
+
+        if (location.protocol === 'file:' && window.ourVideoInlineData) {
+            const binaryVideo = atob(window.ourVideoInlineData);
+            const videoBytes = new Uint8Array(binaryVideo.length);
+            for (let index = 0; index < binaryVideo.length; index += 1) {
+                videoBytes[index] = binaryVideo.charCodeAt(index);
+            }
+            memoryVideo.src = URL.createObjectURL(
+                new Blob([videoBytes], { type: 'video/mp4' })
+            );
+        }
+
+        function showVideoFallback() {
+            if (playbackCheckTimer !== null) {
+                clearTimeout(playbackCheckTimer);
+                playbackCheckTimer = null;
+            }
+            memoryVideo.pause();
+            videoFrame.classList.remove('is-playing');
+            videoPlayButton.setAttribute('aria-label', 'Play our video');
+            videoError.textContent =
+                'Could not play the bundled our-video.mp4. Make sure our-video-data.js is beside bored.html and try a browser that supports MP4 video.';
+            videoError.hidden = false;
+        }
+
+        videoPlayButton.addEventListener('click', function() {
+            if (memoryVideo.ended) memoryVideo.currentTime = 0;
+            if (playbackCheckTimer !== null) clearTimeout(playbackCheckTimer);
+            playbackStarted = false;
+            memoryVideo.play().catch(function() {
+                showVideoFallback();
+            });
+            playbackCheckTimer = setTimeout(function() {
+                if (!playbackStarted) showVideoFallback();
+            }, 5000);
+        });
+
+        memoryVideo.addEventListener('click', function() {
+            if (!memoryVideo.paused) memoryVideo.pause();
+        });
+
+        memoryVideo.addEventListener('playing', function() {
+            playbackStarted = true;
+            if (playbackCheckTimer !== null) {
+                clearTimeout(playbackCheckTimer);
+                playbackCheckTimer = null;
+            }
+            videoError.hidden = true;
+            videoFrame.classList.add('is-playing');
+            videoPlayButton.setAttribute('aria-label', 'Pause our video');
+        });
+
+        memoryVideo.addEventListener('pause', function() {
+            videoFrame.classList.remove('is-playing');
+            videoPlayButton.setAttribute(
+                'aria-label',
+                memoryVideo.ended ? 'Replay our video' : 'Play our video'
+            );
+        });
+
+        memoryVideo.addEventListener('ended', function() {
+            videoFrame.classList.remove('is-playing');
+            videoPlayButton.setAttribute('aria-label', 'Replay our video');
+        });
+
+        memoryVideo.addEventListener('error', function() {
+            showVideoFallback();
+        });
+
+        const ownerQrPanel = document.querySelector('#ownerQrPanel');
+        const qrPageUrl = document.querySelector('#qrPageUrl');
+        const generateQr = document.querySelector('#generateQr');
+        const qrMessage = document.querySelector('#qrMessage');
+        const qrHeartFrame = document.querySelector('#qrHeartFrame');
+        const qrOutput = document.querySelector('#qrOutput');
+        const qrDownload = document.querySelector('#qrDownload');
+        let qrLibraryPromise = null;
+
+        if (new URLSearchParams(location.search).get('owner') === '1') {
+            document.querySelectorAll('.screen').forEach(function(screen) {
+                screen.classList.remove('active');
+            });
+            ownerQrPanel.hidden = false;
+            ownerQrPanel.classList.add('active');
+        }
+
+        function loadQrLibrary() {
+            if (window.QRCode) return Promise.resolve();
+            if (!qrLibraryPromise) {
+                qrLibraryPromise = new Promise(function(resolve, reject) {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+                    script.onload = function() {
+                        if (window.QRCode) {
+                            resolve();
+                        } else {
+                            reject(new Error('QR generator did not load'));
+                        }
+                    };
+                    script.onerror = function() {
+                        reject(new Error('Could not download QR generator'));
+                    };
+                    document.head.appendChild(script);
+                }).catch(function(error) {
+                    qrLibraryPromise = null;
+                    throw error;
+                });
+            }
+            return qrLibraryPromise;
+        }
+
+        generateQr.addEventListener('click', async function() {
+            let target;
+            try {
+                target = new URL(qrPageUrl.value.trim());
+            } catch (error) {
+                qrMessage.textContent = 'Enter the public HTTPS address of your webpage first.';
+                return;
+            }
+            if (target.protocol !== 'https:') {
+                qrMessage.textContent = 'The QR code needs the public HTTPS link, not a local file or localhost address.';
+                return;
+            }
+
+            target.searchParams.delete('owner');
+            qrMessage.textContent = 'Creating your heart QR code…';
+            qrDownload.hidden = true;
+            qrHeartFrame.hidden = false;
+            qrOutput.replaceChildren();
+
+            try {
+                await loadQrLibrary();
+                new window.QRCode(qrOutput, {
+                    text: target.href,
+                    width: 280,
+                    height: 280,
+                    colorDark: '#8f354e',
+                    colorLight: '#ffffff',
+                    correctLevel: window.QRCode.CorrectLevel.H
+                });
+
+                const qrCanvas = qrOutput.querySelector('canvas');
+                const qrImage = qrOutput.querySelector('img');
+                let imageUrl = qrImage && qrImage.src;
+                if (qrCanvas) {
+                    const downloadCanvas = document.createElement('canvas');
+                    downloadCanvas.width = qrCanvas.width;
+                    downloadCanvas.height = qrCanvas.height;
+                    const context = downloadCanvas.getContext('2d');
+                    if (!context) throw new Error('QR download canvas is unavailable');
+                    context.drawImage(qrCanvas, 0, 0);
+                    context.fillStyle = '#ffffff';
+                    context.beginPath();
+                    context.arc(downloadCanvas.width / 2, downloadCanvas.height / 2, 24, 0, Math.PI * 2);
+                    context.fill();
+                    context.fillStyle = '#b94f68';
+                    context.font = '26px Arial';
+                    context.textAlign = 'center';
+                    context.textBaseline = 'middle';
+                    context.fillText('♥', downloadCanvas.width / 2, downloadCanvas.height / 2);
+                    imageUrl = downloadCanvas.toDataURL('image/png');
+                }
+                if (!imageUrl) {
+                    throw new Error('QR image was not generated');
+                }
+                qrDownload.href = imageUrl;
+                qrDownload.hidden = false;
+                qrMessage.textContent = 'Ready! Scan this heart-style code to open your public webpage.';
+            } catch (error) {
+                qrHeartFrame.hidden = true;
+                qrMessage.textContent = 'Could not create the QR code. Check your internet connection and try again.';
+            }
+        });
+    </script>
+
+</body>
+</html>
