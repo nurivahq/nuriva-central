@@ -1,0 +1,3715 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Language Whispers — Learn With Confidence</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+
+:root{
+    --sage:#8BAF9D;
+    --sage-light:#EAF1ED;
+    --sage-soft:#DCE9E2;
+    --deep:#12382D;
+    --deep-2:#1D4A3B;
+    --green:#315C4B;
+    --cream:#F8F8F3;
+    --white:#fff;
+    --text:#24352E;
+    --muted:#68766F;
+    --border:rgba(18,56,45,.12);
+    --shadow:0 20px 60px rgba(18,56,45,.10);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"DM Sans",sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+select{
+    font:inherit;
+}
+
+.container{
+    width:min(1160px,calc(100% - 48px));
+    margin:auto;
+}
+
+.section{
+    padding:110px 0;
+}
+
+.section-label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:18px;
+
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--green);
+}
+
+.section-label::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:currentColor;
+}
+
+h1,
+h2{
+    font-family:"Playfair Display",serif;
+    font-weight:600;
+    color:var(--deep);
+}
+
+h2{
+    font-size:clamp(2.5rem,5vw,4.5rem);
+    line-height:1.02;
+    letter-spacing:-.04em;
+}
+
+p{
+    line-height:1.75;
+}
+
+::selection{
+    background:var(--deep);
+    color:#fff;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    padding:18px 0;
+    transition:.3s ease;
+}
+
+.navbar.scrolled{
+    background:rgba(248,248,243,.93);
+    backdrop-filter:blur(18px);
+    box-shadow:0 8px 30px rgba(18,56,45,.06);
+    padding:12px 0;
+}
+
+.nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    flex-shrink:0;
+}
+
+.logo img{
+    width:44px;
+    height:44px;
+    object-fit:contain;
+    border-radius:12px;
+}
+
+.logo-text{
+    color:var(--deep);
+    font-size:17px;
+    font-weight:700;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:27px;
+}
+
+.nav-links a{
+    color:var(--deep);
+    font-size:14px;
+    font-weight:600;
+    opacity:.78;
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    opacity:1;
+}
+
+.language-select{
+    appearance:none;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.55);
+    color:var(--deep);
+    border-radius:999px;
+    padding:10px 14px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    outline:none;
+}
+
+.menu-btn{
+    display:none;
+    width:44px;
+    height:44px;
+    border:1px solid var(--border);
+    border-radius:50%;
+    background:rgba(255,255,255,.6);
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.menu-btn span{
+    width:18px;
+    height:2px;
+    background:var(--deep);
+    border-radius:2px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+    padding:0 0 80px;
+    padding-top:150px;
+    background:
+        radial-gradient(circle at 84% 15%,
+        rgba(255,255,255,.34),
+        transparent 28%),
+        var(--sage);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:430px;
+    height:430px;
+    border:1px solid rgba(18,56,45,.10);
+    border-radius:50%;
+    right:-170px;
+    bottom:-190px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:230px;
+    height:230px;
+    border:1px solid rgba(18,56,45,.08);
+    border-radius:50%;
+    right:90px;
+    top:130px;
+}
+
+.hero-grid{
+    position:relative;
+    z-index:2;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:70px;
+    align-items:center;
+}
+
+.hero-copy{
+    max-width:720px;
+}
+
+.hero-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    padding:8px 13px;
+    margin-bottom:25px;
+
+    border:1px solid rgba(18,56,45,.16);
+    background:rgba(255,255,255,.25);
+    border-radius:999px;
+
+    color:var(--deep);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+}
+
+.hero-eyebrow span:first-child{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--deep);
+}
+
+.hero h1{
+    font-size:clamp(3.4rem,7vw,6.7rem);
+    line-height:.94;
+    letter-spacing:-.055em;
+}
+
+.hero h1 em{
+    color:white;
+    font-style:normal;
+}
+
+.hero-description{
+    max-width:580px;
+    margin-top:30px;
+    color:rgba(18,56,45,.78);
+    font-size:17px;
+}
+
+.hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:34px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+
+    min-height:50px;
+    padding:0 22px;
+
+    border-radius:999px;
+    border:1px solid transparent;
+
+    font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-dark{
+    background:var(--deep);
+    color:#fff;
+    box-shadow:0 10px 25px rgba(18,56,45,.18);
+}
+
+.btn-light{
+    background:rgba(255,255,255,.35);
+    border-color:rgba(18,56,45,.16);
+    color:var(--deep);
+}
+
+.btn-white{
+    background:#fff;
+    color:var(--deep);
+}
+
+
+/* =========================================================
+   HERO CARD
+========================================================= */
+
+.hero-visual{
+    position:relative;
+    min-height:470px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero-card{
+    width:min(390px,100%);
+    min-height:450px;
+
+    padding:28px;
+    border-radius:38px;
+
+    background:rgba(248,248,243,.72);
+    border:1px solid rgba(255,255,255,.65);
+    box-shadow:0 35px 80px rgba(18,56,45,.15);
+
+    position:relative;
+    overflow:hidden;
+    transform:rotate(3deg);
+}
+
+.hero-card::before{
+    content:"";
+    position:absolute;
+    width:210px;
+    height:210px;
+    border-radius:50%;
+    background:var(--sage-soft);
+    top:-80px;
+    right:-70px;
+}
+
+.hero-card-logo{
+    position:relative;
+    z-index:2;
+    width:72px;
+    height:72px;
+    padding:10px;
+    object-fit:contain;
+    border-radius:20px;
+    background:#fff;
+}
+
+.hero-card-content{
+    position:absolute;
+    left:28px;
+    right:28px;
+    bottom:28px;
+}
+
+.hero-card-small{
+    color:var(--green);
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+}
+
+.hero-card-title{
+    margin:10px 0 16px;
+    color:var(--deep);
+    font-family:"Playfair Display",serif;
+    font-size:42px;
+    line-height:1;
+}
+
+.hero-card-text{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+}
+
+.hero-note{
+    position:absolute;
+    left:0;
+    bottom:5px;
+    padding-top: 10px;
+
+    padding:15px 18px;
+    border-radius:16px;
+
+    background:var(--deep);
+    color:#fff;
+
+    font-size:12px;
+    font-weight:600;
+
+    box-shadow:0 15px 30px rgba(18,56,45,.2);
+}
+
+
+/* =========================================================
+   TRUST
+========================================================= */
+
+.trust{
+    padding:28px 0;
+    background:var(--deep);
+    color:#fff;
+}
+
+.trust-item{
+    display:flex;
+    flex:0 0 auto;
+    align-items:center;
+    gap:14px;
+}
+
+.trust-marquee{
+    width:100%;
+    overflow:hidden;
+}
+
+.trust-marquee-track{
+    display:flex;
+    width:max-content;
+    animation:trust-marquee 16s linear infinite;
+}
+
+.trust-marquee-group{
+    display:flex;
+    flex:0 0 auto;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+    min-width:100vw;
+    padding-right:30px;
+    white-space:nowrap;
+}
+
+@keyframes trust-marquee{
+    to{
+        transform:translateX(-50%);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .trust-marquee-track{
+        animation-duration:24s;
+    }
+}
+
+.trust-number{
+    font-family:"Playfair Display",serif;
+    font-size:31px;
+   
+}
+
+.trust-text{
+    color:rgba(255,255,255,.66);
+    font-size:13px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:.75fr 1.25fr;
+    gap:90px;
+    align-items:start;
+}
+
+.about-intro{
+    position:sticky;
+    top:130px;
+}
+
+.about-text{
+    max-width:650px;
+    color:var(--muted);
+    font-size:18px;
+}
+
+.about-text + .about-text{
+    margin-top:20px;
+}
+
+.about-mark{
+    width:85px;
+    height:85px;
+    margin-top:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    background:var(--sage);
+
+    color:var(--deep);
+    font-family:"Playfair Display",serif;
+    font-size:26px;
+}
+
+
+/* =========================================================
+   PROGRAMS
+========================================================= */
+
+.programs{
+    background:var(--sage-light);
+}
+
+.program-heading{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:30px;
+    margin-bottom:55px;
+}
+
+.program-heading p{
+    max-width:390px;
+    color:var(--muted);
+}
+
+.program-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+}
+
+.program-card{
+    min-height:450px;
+    padding:35px;
+
+    display:flex;
+    flex-direction:column;
+
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:30px;
+
+    transition:.25s ease;
+}
+
+.program-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+}
+
+.program-card.featured{
+    background:var(--deep);
+    color:#fff;
+}
+
+.program-register{
+    width:100%;
+    min-height:50px;
+    margin-top:24px;
+    padding:0 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border:1px solid transparent;
+    border-radius:999px;
+    background:var(--deep);
+    color:#fff;
+    font:inherit;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    transition:transform .2s ease,background .2s ease;
+}
+
+.program-register:hover{
+    transform:translateY(-2px);
+    background:var(--green);
+}
+
+.featured .program-register{
+    background:#fff;
+    color:var(--deep);
+}
+
+.featured .program-register:hover{
+    background:var(--sage-light);
+}
+
+.program-register:focus-visible,
+.registration-dialog button:focus-visible,
+.registration-dialog a:focus-visible,
+.registration-dialog input:focus-visible,
+.registration-dialog select:focus-visible{
+    outline:3px solid var(--sage);
+    outline-offset:3px;
+}
+
+.registration-dialog{
+    position:fixed;
+    inset:0;
+    margin:auto;
+    width:min(540px,calc(100% - 28px));
+    max-width:none;
+    max-height:min(88vh,780px);
+    padding:0;
+    overflow:auto;
+    border:1px solid var(--border);
+    border-radius:28px;
+    background:var(--cream);
+    color:var(--text);
+    box-shadow:0 30px 90px rgba(18,56,45,.24);
+}
+
+.registration-dialog::backdrop{
+    background:rgba(9,30,23,.64);
+    backdrop-filter:blur(5px);
+}
+
+.registration-step{
+    position:relative;
+    padding:clamp(24px,6vw,40px);
+}
+
+.registration-close{
+    position:absolute;
+    top:18px;
+    right:18px;
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border:1px solid var(--border);
+    border-radius:50%;
+    background:#fff;
+    color:var(--deep);
+    font-size:21px;
+    cursor:pointer;
+}
+
+.registration-kicker{
+    margin:0 44px 12px 0;
+    color:var(--green);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+}
+
+.registration-step h2{
+    margin:0;
+    font-size:clamp(29px,7vw,39px);
+}
+
+.registration-copy{
+    margin:14px 0 22px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.registration-summary{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    padding:16px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:#fff;
+    font-size:13px;
+}
+
+.registration-summary span,
+.review-label{
+    color:var(--muted);
+}
+
+.registration-summary strong{
+    color:var(--deep);
+    text-align:right;
+}
+
+.registration-form{
+    display:grid;
+    gap:16px;
+}
+
+.registration-field{
+    display:grid;
+    gap:7px;
+    color:var(--deep);
+    font-size:13px;
+    font-weight:700;
+}
+
+.registration-field[hidden]{
+    display:none;
+}
+
+.registration-field input,
+.registration-field select{
+    width:100%;
+    min-height:48px;
+    padding:0 13px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    color:var(--text);
+    font:inherit;
+    font-size:14px;
+}
+
+.registration-days{
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+.registration-days legend{
+    margin-bottom:7px;
+    color:var(--deep);
+    font-size:13px;
+    font-weight:700;
+}
+
+.registration-day-options{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+}
+
+.registration-day-option{
+    min-height:42px;
+    padding:8px 10px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:#fff;
+    color:var(--text);
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+}
+
+.registration-day-option:has(input:checked){
+    border-color:var(--green);
+    background:var(--sage-light);
+}
+
+.registration-day-option input{
+    accent-color:var(--green);
+}
+
+.registration-day-count{
+    margin:7px 0 0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.registration-schedule-note{
+    padding:14px 15px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--sage-light);
+    color:var(--deep);
+    font-size:14px;
+    font-weight:700;
+}
+
+.registration-timezone{
+    margin:-7px 0 0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.registration-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:22px;
+}
+
+.registration-form .registration-actions{
+    margin-top:4px;
+}
+
+.registration-button{
+    min-height:46px;
+    padding:0 17px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    background:#fff;
+    color:var(--deep);
+    font:inherit;
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.registration-button-primary{
+    border-color:var(--deep);
+    background:var(--deep);
+    color:#fff;
+}
+
+.registration-button-primary:hover{
+    background:var(--green);
+    border-color:var(--green);
+}
+
+.registration-button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.registration-review{
+    display:grid;
+    gap:0;
+    margin:20px 0 16px;
+    padding:0 16px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:#fff;
+}
+
+.registration-review-row{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:12px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+}
+
+.registration-review-row:last-child{
+    border-bottom:0;
+}
+
+.review-value{
+    color:var(--deep);
+    font-weight:700;
+    overflow-wrap:anywhere;
+}
+
+.registration-note{
+    margin:15px 0 0;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+}
+
+.registration-dialog[open]{
+    animation:registration-pop .22s ease-out;
+}
+
+@keyframes registration-pop{
+    from{opacity:0;transform:translateY(12px) scale(.98);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+@media(max-width:520px){
+    .registration-actions{
+        flex-direction:column-reverse;
+    }
+
+    .registration-actions > *{
+        width:100%;
+    }
+}
+
+.program-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.program-name{
+    color:inherit;
+    font-size:14px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+}
+
+.program-badge{
+    padding:7px 10px;
+    border-radius:999px;
+    background:var(--sage-light);
+    color:var(--green);
+    font-size:11px;
+    font-weight:700;
+}
+
+.featured .program-badge{
+    background:rgba(255,255,255,.12);
+    color:#fff;
+}
+
+.program-title{
+    margin-top:45px;
+    color:var(--deep);
+    font-family:"Playfair Display",serif;
+    font-size:43px;
+    line-height:1.05;
+}
+
+.featured .program-title{
+    color:#fff;
+}
+
+.program-price{
+    margin-top:14px;
+    color:inherit;
+    font-size:28px;
+    font-weight:700;
+}
+
+.program-price span{
+    font-size:13px;
+    font-weight:500;
+    opacity:.6;
+}
+
+.program-description{
+    margin-top:15px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.featured .program-description{
+    color:rgba(255,255,255,.66);
+}
+
+.program-details{
+    margin-top:auto;
+    padding-top:30px;
+    display:grid;
+    gap:12px;
+}
+
+.detail{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+    color:var(--text);
+    font-size:13px;
+}
+
+.featured .detail{
+    color:rgba(255,255,255,.82);
+}
+
+.detail::before{
+    content:"✓";
+    width:20px;
+    height:20px;
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    background:var(--sage-light);
+    color:var(--green);
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.featured .detail::before{
+    background:rgba(255,255,255,.12);
+    color:#fff;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.experience-copy p{
+    max-width:570px;
+    margin-top:22px;
+    color:var(--muted);
+    font-size:17px;
+}
+
+.experience-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.experience-item{
+    min-height:145px;
+    padding:24px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:var(--sage-light);
+}
+
+.experience-icon{
+    font-size:20px;
+}
+
+.experience-item strong{
+    color:var(--deep);
+    font-size:14px;
+}
+
+.experience-item span:last-child{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   TESTIMONIAL CTA
+========================================================= */
+
+.testimonial-section{
+    padding:30px 0 110px;
+}
+
+.testimonial-box{
+    position:relative;
+    overflow:hidden;
+
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:40px;
+
+    padding:70px;
+
+    border-radius:36px;
+    background:var(--deep);
+    color:#fff;
+}
+
+.testimonial-box::after{
+    content:"“";
+    position:absolute;
+    right:40px;
+    top:-55px;
+
+    color:rgba(255,255,255,.04);
+    font-family:"Playfair Display",serif;
+    font-size:260px;
+}
+
+.testimonial-box h2{
+    max-width:650px;
+    color:#fff;
+}
+
+.testimonial-box p{
+    margin-top:14px;
+    color:rgba(255,255,255,.62);
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    background:var(--sage);
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr .8fr;
+    gap:80px;
+    align-items:end;
+}
+
+.contact h2{
+    max-width:700px;
+}
+
+.contact-copy{
+    max-width:560px;
+    margin-top:20px;
+    color:rgba(18,56,45,.72);
+}
+
+.contact-actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.contact-button{
+    width:100%;
+    min-height:62px;
+
+    padding:0 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border:1px solid rgba(18,56,45,.12);
+    border-radius:18px;
+
+    background:rgba(255,255,255,.4);
+    color:var(--deep);
+
+    font-size:14px;
+    font-weight:700;
+
+    transition:.2s ease;
+}
+
+.contact-button:hover{
+    background:#fff;
+    transform:translateX(4px);
+}
+
+.contact-button small{
+    display:block;
+    margin-top:3px;
+    color:var(--deep);
+    opacity:.55;
+    font-size:11px;
+    font-weight:500;
+}
+
+.contact-arrow{
+    font-size:20px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:35px 0;
+    background:var(--deep);
+    color:#fff;
+}
+
+.footer-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.footer-brand img{
+    width:35px;
+    height:35px;
+    padding:4px;
+    object-fit:contain;
+    border-radius:9px;
+    background:#fff;
+}
+
+.footer-brand span{
+    font-size:14px;
+    font-weight:700;
+}
+
+.footer-copy{
+    color:rgba(255,255,255,.48);
+    font-size:12px;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+    transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+    .container{
+        width:min(100% - 36px,700px);
+    }
+
+    .section{
+        padding:85px 0;
+    }
+
+    .hero{
+        padding-top:130px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+        gap:60px;
+    }
+
+    .hero-visual{
+        min-height:400px;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .about-intro{
+        position:static;
+    }
+
+    .about-mark{
+        display:none;
+    }
+
+    .program-heading{
+        display:block;
+    }
+
+    .program-heading p{
+        margin-top:18px;
+    }
+
+    .experience-grid{
+        grid-template-columns:1fr;
+        gap:45px;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:680px){
+
+    .container{
+        width:calc(100% - 30px);
+    }
+
+    .section{
+        padding:70px 0;
+    }
+
+
+    /* NAV */
+
+    .navbar{
+        padding:12px 0;
+    }
+
+    .logo img{
+        width:39px;
+        height:39px;
+    }
+
+    .logo-text{
+        font-size:15px;
+    }
+
+    .nav-right{
+        gap:8px;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:calc(100% + 8px);
+        left:15px;
+        right:15px;
+
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+
+        padding:10px;
+
+        border:1px solid var(--border);
+        border-radius:22px;
+
+        background:rgba(248,248,243,.97);
+        backdrop-filter:blur(20px);
+
+        box-shadow:0 20px 50px rgba(18,56,45,.12);
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:13px 15px;
+        border-radius:13px;
+    }
+
+    .nav-links a:hover{
+        background:var(--sage-light);
+    }
+
+    .language-select{
+        max-width:62px;
+        padding:9px 8px;
+    }
+
+    .menu-btn{
+        display:flex;
+    }
+
+
+    /* HERO */
+
+    .hero{
+        min-height:auto;
+        padding:0 0 65px;
+        padding-top:125px;
+    }
+
+    .hero-grid{
+        gap:50px;
+    }
+
+    .hero-eyebrow{
+        font-size:9px;
+        padding:7px 10px;
+    }
+
+    .hero h1{
+        font-size:clamp(3rem,15vw,4.7rem);
+        line-height:.95;
+    }
+
+    .hero-description{
+        margin-top:23px;
+        font-size:15px;
+    }
+
+    .hero-actions{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .hero-actions .btn{
+        width:100%;
+    }
+
+    .hero-visual{
+        min-height:350px;
+    }
+
+    .hero-card{
+        min-height:350px;
+        padding:22px;
+        border-radius:28px;
+        transform:rotate(2deg);
+    }
+
+    .hero-card-logo{
+        width:58px;
+        height:58px;
+        border-radius:15px;
+    }
+
+    .hero-card-content{
+        left:22px;
+        right:22px;
+        bottom:22px;
+    }
+
+    .hero-card-title{
+        font-size:34px;
+    }
+
+    .hero-note{
+        left:-3px;
+        bottom:10px;
+        padding:12px 14px;
+        font-size:10px;
+    }
+
+
+    /* TRUST */
+
+    .trust{
+        padding:22px 0;
+    }
+
+    .trust-number{
+        font-size:26px;
+    }
+
+
+    /* HEADINGS */
+
+    h2{
+        font-size:clamp(2.35rem,11vw,3.5rem);
+    }
+
+
+    /* ABOUT */
+
+    .about-text{
+        font-size:16px;
+    }
+
+
+    /* PROGRAMS */
+
+    .program-heading{
+        margin-bottom:35px;
+    }
+
+    .program-grid{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .program-card{
+        min-height:430px;
+        padding:26px;
+        border-radius:25px;
+    }
+
+    .program-title{
+        margin-top:35px;
+        font-size:36px;
+    }
+
+    .program-price{
+        font-size:25px;
+    }
+
+
+    /* EXPERIENCE */
+
+    .experience-list{
+        grid-template-columns:1fr;
+    }
+
+    .experience-item{
+        min-height:120px;
+    }
+
+
+    /* TESTIMONIAL */
+
+    .testimonial-section{
+        padding:0 0 70px;
+    }
+
+    .testimonial-box{
+        grid-template-columns:1fr;
+        gap:25px;
+        padding:38px 25px;
+        border-radius:27px;
+    }
+
+    .testimonial-box .btn{
+        width:100%;
+    }
+
+
+    /* CONTACT */
+
+    .contact-grid{
+        gap:35px;
+    }
+
+    .contact-button{
+        min-height:60px;
+        padding:0 17px;
+    }
+
+
+    /* FOOTER */
+
+    .footer-inner{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:360px){
+
+    .container{
+        width:calc(100% - 24px);
+    }
+
+    .logo-text{
+        font-size:14px;
+    }
+
+    .hero h1{
+        font-size:2.9rem;
+    }
+
+    .hero-card{
+        min-height:320px;
+    }
+
+    .program-card{
+        padding:22px;
+    }
+
+    .program-title{
+        font-size:32px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<header class="navbar" id="navbar">
+
+    <div class="container nav-inner">
+
+        <a href="#home" class="logo">
+            <img src="lan.png" alt="Language Whispers logo">
+            <span class="logo-text">Language Whispers</span>
+        </a>
+
+        <div class="nav-right">
+
+            <nav class="nav-links" id="navLinks">
+
+                <a href="#about" data-i18n="navAbout">About</a>
+
+                <a href="#programs" data-i18n="navPrograms">Programs</a>
+
+                <a href="#testimonials" data-i18n="navTestimonials">
+                    Testimonials
+                </a>
+
+                <a href="#contact" data-i18n="navContact">
+                    Contact
+                </a>
+
+            </nav>
+
+            <select id="languageSelect" class="language-select">
+                <option value="am">አማ</option>
+                <option value="en">EN</option>
+            </select>
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<main>
+
+<section class="hero" id="home">
+
+    <div class="container hero-grid">
+
+        <div class="hero-copy reveal">
+
+            <div class="hero-eyebrow">
+                <span></span>
+                <span data-i18n="eyebrow">
+                    Learn with confidence
+                </span>
+            </div>
+
+            <h1 data-i18n-html="heroTitle">
+                Find your voice.
+                <em>Learn your way.</em>
+            </h1>
+
+            <p class="hero-description" data-i18n="heroDescription">
+                Personal online language lessons for people who want
+                focused teaching, real practice, and a schedule that
+                fits their life.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="#programs"
+                    class="btn btn-dark"
+                    data-i18n="explorePrograms"
+                >
+                    Explore programs →
+                </a>
+
+                <a
+                    href="https://t.me/language_whispers1?text=Hello%20Language%20Whispers%2C%20I%27m%20interested%20in%20your%20language%20programs."
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-light"
+                    data-i18n="talkTelegram"
+                >
+                    Message us on Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual reveal">
+
+            <div class="hero-card">
+
+                <img
+                    src="lan.png"
+                    alt="Language Whispers"
+                    class="hero-card-logo"
+                >
+
+                <div class="hero-card-content">
+
+                    <div
+                        class="hero-card-small"
+                        data-i18n="heroCardSmall"
+                    >
+                        Language Whispers
+                    </div>
+
+                    <div
+                        class="hero-card-title"
+                        data-i18n-html="heroCardTitle"
+                    >
+                        Learn.<br>
+                        Speak.<br>   
+                    </div>
+
+                    <p
+                        class="hero-card-text"
+                        data-i18n="heroCardText"
+                    >
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="hero-note" data-i18n="heroNote">
+                30–40 minutes · 1 teacher · 1 student
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRUST
+========================================================= -->
+
+<section class="trust">
+
+    <div class="container">
+        <div class="trust-marquee">
+            <div class="trust-marquee-track">
+                <div class="trust-marquee-group">
+                    <div class="trust-item">
+                        <strong class="trust-number">30+</strong>
+                        <span class="trust-text" data-i18n="students">
+                            learners have joined us
+                        </span>
+                    </div>
+                    <div class="trust-item">
+                        <strong class="trust-number">1 : 1</strong>
+                        <span class="trust-text" data-i18n="private">
+                            completely private lessons
+                        </span>
+                    </div>
+                    <div class="trust-item">
+                        <strong class="trust-number">30–40</strong>
+                        <span class="trust-text" data-i18n="minutes">
+                            minutes focused on you
+                        </span>
+                    </div>
+                </div>
+                <div class="trust-marquee-group" aria-hidden="true">
+                    <div class="trust-item">
+                        <strong class="trust-number">30+</strong>
+                        <span class="trust-text" data-i18n="students">
+                            learners have joined us
+                        </span>
+                    </div>
+                    <div class="trust-item">
+                        <strong class="trust-number">1 : 1</strong>
+                        <span class="trust-text" data-i18n="private">
+                            completely private lessons
+                        </span>
+                    </div>
+                    <div class="trust-item">
+                        <strong class="trust-number">30–40</strong>
+                        <span class="trust-text" data-i18n="minutes">
+                            minutes focused on you
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section class="section" id="about">
+
+    <div class="container about-grid">
+
+        <div class="about-intro reveal">
+
+            <div
+                class="section-label"
+                data-i18n="aboutLabel"
+            >
+                About Language Whispers
+            </div>
+
+            <h2 data-i18n-html="aboutTitle">
+                Language learning
+                should feel personal.
+            </h2>
+
+            <div class="about-mark">
+                LW
+            </div>
+
+        </div>
+
+
+        <div class="reveal">
+
+            <p
+                class="about-text"
+                data-i18n="aboutText1"
+            >
+                Language Whispers was created for learners who want
+                more than simply attending a class. We believe progress
+                comes from having someone who listens to you, corrects you,
+                guides you, and helps you keep going.
+            </p>
+
+            <p
+                class="about-text"
+                data-i18n="aboutText2"
+            >
+                That is why our lessons are one-to-one. You get the
+                teacher's full attention, the freedom to ask questions,
+                and space to practice without feeling lost in a crowd.
+            </p>
+
+            <p
+                class="about-text"
+                data-i18n="aboutText3"
+            >
+                Lessons take place online through WhatsApp, Telegram,
+                or Zoom. Choose a time that works for you and learn
+                from wherever you are. A Language Whispers mobile app
+                is also coming soon.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROGRAMS
+========================================================= -->
+
+<section class="section programs" id="programs">
+
+    <div class="container">
+
+        <div class="program-heading reveal">
+
+            <div>
+
+                <div
+                    class="section-label"
+                    data-i18n="programLabel"
+                >
+                    Programs
+                </div>
+
+                <h2 data-i18n-html="programTitle">
+                    Pick the pace
+                    that fits you.
+                </h2>
+
+            </div>
+
+            <p data-i18n="programIntro">
+                Two simple options. Same one-to-one experience.
+                Choose the rhythm that matches your goals.
+            </p>
+
+        </div>
+
+
+        <div class="program-grid">
+
+
+            <!-- STANDARD -->
+
+            <article class="program-card reveal">
+
+                <div class="program-top">
+
+                    <span
+                        class="program-name"
+                        data-i18n="standard"
+                    >
+                        Standard
+                    </span>
+
+                    <span
+                        class="program-badge"
+                        data-i18n="threeDays"
+                    >
+                        3 days / week
+                    </span>
+
+                </div>
+
+                <h3
+                    class="program-title"
+                    data-i18n="standardTitle"
+                >
+                    Consistent,
+                    comfortable progress.
+                </h3>
+
+                <div class="program-price">
+                    2,000 <span>ETB</span>
+                </div>
+
+                <p
+                    class="program-description"
+                    data-i18n="standardDescription"
+                >
+                    A steady option for learners who want regular
+                    practice without an intensive schedule.
+                </p>
+
+                <div class="program-details">
+
+                    <div
+                        class="detail"
+                        data-i18n="standardLessons"
+                    >
+                        12 lessons
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="standardDuration"
+                    >
+                        1 month + 2 weeks
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="standardPrivate"
+                    >
+                        One teacher with one student
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="standardTime"
+                    >
+                        Your preferred learning time
+                    </div>
+
+                </div>
+
+                <button
+                    class="program-register"
+                    type="button"
+                    data-program-key="standard"
+                >
+                    <span data-i18n="registerAction">Register for this program</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+
+            </article>
+
+
+            <!-- INTENSIVE -->
+
+            <article class="program-card featured reveal">
+
+                <div class="program-top">
+
+                    <span
+                        class="program-name"
+                        data-i18n="intensive"
+                    >
+                        Intensive
+                    </span>
+
+                    <span
+                        class="program-badge"
+                        data-i18n="sixDays"
+                    >
+                        6 days / week
+                    </span>
+
+                </div>
+
+                <h3
+                    class="program-title"
+                    data-i18n="intensiveTitle"
+                >
+                    More practice.
+                    Faster momentum.
+                </h3>
+
+                <div class="program-price">
+                    4,000 <span>ETB</span>
+                </div>
+
+                <p
+                    class="program-description"
+                    data-i18n="intensiveDescription"
+                >
+                    A more frequent schedule for learners who want
+                    to stay immersed and build momentum quickly.
+                </p>
+
+                <div class="program-details">
+
+                    <div
+                        class="detail"
+                        data-i18n="intensiveLessons"
+                    >
+                        24 lessons
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="intensiveDuration"
+                    >
+                        1 month + 2 weeks
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="intensiveSunday"
+                    >
+                        Sunday is your day off
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="intensivePrivate"
+                    >
+                        One teacher with one student
+                    </div>
+
+                    <div
+                        class="detail"
+                        data-i18n="intensiveTime"
+                    >
+                        Your preferred learning time
+                    </div>
+
+                </div>
+
+                <button
+                    class="program-register"
+                    type="button"
+                    data-program-key="intensive"
+                >
+                    <span data-i18n="registerAction">Register for this program</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+<dialog
+    class="registration-dialog"
+    id="registrationDialog"
+    aria-labelledby="registrationTitle"
+>
+    <div id="registrationContent"></div>
+</dialog>
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section class="section">
+
+    <div class="container experience-grid">
+
+        <div class="experience-copy reveal">
+
+            <div
+                class="section-label"
+                data-i18n="experienceLabel"
+            >
+                Why Language Whispers
+            </div>
+
+            <h2 data-i18n-html="experienceTitle">
+                A class that
+                works around you.
+            </h2>
+
+            <p data-i18n="experienceText">
+                Your learning should fit into your life, not compete
+                with it. We keep the experience simple: personal
+                attention, flexible timing, and a space where you can
+                actually practice speaking.
+            </p>
+
+        </div>
+
+
+        <div class="experience-list reveal">
+
+            <div class="experience-item">
+
+                <span class="experience-icon">01</span>
+
+                <strong data-i18n="featureOneTitle">
+                    Just you and your teacher
+                </strong>
+
+                <span data-i18n="featureOneText">
+                    No crowded classroom. No competing for attention.
+                </span>
+
+            </div>
+
+
+            <div class="experience-item">
+
+                <span class="experience-icon">02</span>
+
+                <strong data-i18n="featureTwoTitle">
+                    Your time
+                </strong>
+
+                <span data-i18n="featureTwoText">
+                    Choose a learning time that fits your routine.
+                </span>
+
+            </div>
+
+
+            <div class="experience-item">
+
+                <span class="experience-icon">03</span>
+
+                <strong data-i18n="featureThreeTitle">
+                    Learn from anywhere
+                </strong>
+
+                <span data-i18n="featureThreeText">
+                    Join through WhatsApp, Telegram, or Zoom.
+                </span>
+
+            </div>
+
+
+            <div class="experience-item">
+
+                <span class="experience-icon">04</span>
+
+                <strong data-i18n="featureFourTitle">
+                    Something new is coming
+                </strong>
+
+                <span data-i18n="featureFourText">
+                    Our mobile learning experience is on the way.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TESTIMONIALS
+========================================================= -->
+
+<section
+    class="testimonial-section"
+    id="testimonials"
+>
+
+    <div class="container">
+
+        <div class="testimonial-box reveal">
+
+            <div>
+
+                <div
+                    class="section-label"
+                    style="color:#8BAF9D;"
+                >
+                    <span data-i18n="testimonialLabel">
+                        From our learners
+                    </span>
+                </div>
+
+                <h2 data-i18n-html="testimonialTitle">
+                    Their experience
+                    says it better.
+                </h2>
+
+                <p data-i18n="testimonialText">
+                    See what learners who have studied with
+                    Language Whispers have to say.
+                </p>
+
+            </div>
+
+            <!-- Replace this with your real testimonial page/file -->
+
+            <a
+                href="student.html"
+                class="btn btn-white"
+                data-i18n="viewTestimonials"
+            >
+                View testimonials →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section class="section contact" id="contact">
+
+    <div class="container contact-grid">
+
+        <div class="reveal">
+
+            <div
+                class="section-label"
+                data-i18n="contactLabel"
+            >
+                Let's talk
+            </div>
+
+            <h2 data-i18n-html="contactTitle">
+                Your next language
+                could start today.
+            </h2>
+
+            <p
+                class="contact-copy"
+                data-i18n="contactText"
+            >
+                Have a question about the programs, schedule,
+                languages, or registration? Send us a message.
+                We'll be happy to help.
+            </p>
+
+        </div>
+
+
+        <div class="contact-actions reveal">
+
+
+            <!-- TELEGRAM -->
+
+            <a
+                href="https://t.me/language_whispers1?text=Hello%20Language%20Whispers%2C%20I%27d%20like%20to%20learn%20more%20about%20your%20programs."
+                target="_blank"
+                rel="noopener"
+                class="contact-button"
+            >
+
+                <span>
+
+                    <span data-i18n="telegram">
+                        Telegram
+                    </span>
+
+                    <small>
+                        @language_whispers1
+                    </small>
+
+                </span>
+
+                <span class="contact-arrow">↗</span>
+
+            </a>
+
+
+            <!-- EMAIL
+                 Replace YOUR-EMAIL@example.com
+                 with your actual Language Whispers email.
+            -->
+
+           <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=languagewhispers@gmail.com&su=Language%20Whispers%20Inquiry&body=Hello%20Language%20Whispers%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20your%20programs."
+            target="_blank"
+            rel="noopener"
+            class="contact-button"
+        >
+
+                <span>
+
+                    <span data-i18n="email">
+                        Email
+                    </span>
+
+                    <small data-i18n="emailSmall">
+                        Send us a message
+                    </small>
+
+                </span>
+
+                <span class="contact-arrow">↗</span>
+
+            </a>
+
+            <a
+                href="tel:0929289858"
+                class="contact-button"
+            >
+
+                <span>
+
+                    <span>Phone</span>
+
+                    <small>0929289858</small>
+
+                </span>
+
+                <span class="contact-arrow" aria-hidden="true">↗</span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <div class="footer-brand">
+
+            <img
+                src="lan.png"
+                alt="Language Whispers"
+            >
+
+            <span>
+                Language Whispers
+            </span>
+
+        </div>
+
+        <div class="footer-copy">
+            © <span id="year"></span> Language Whispers.
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   NATURAL ENGLISH + NATURAL AMHARIC
+========================================================= */
+
+const translations = {
+
+    en: {
+
+        navAbout: "About",
+        navPrograms: "Programs",
+        navTestimonials: "Testimonials",
+        navContact: "Contact",
+
+        eyebrow: "Welcome to Language Whispers",
+
+        heroTitle:
+            "Find your voice. <em>Learn your way.</em>",
+
+        heroDescription:
+            "Personal online language lessons for people who want focused teaching, real practice, and a schedule that fits their life.",
+
+        explorePrograms:
+            "Explore programs →",
+
+        talkTelegram:
+            "Message us on Telegram",
+
+        heroCardSmall:
+            "Language Whispers",
+
+        heroCardTitle:
+            "Learn.<br>Speak.<br>Connect.",
+
+       
+
+        heroNote:
+            "30–40 minutes · 1 teacher · 1 student",
+
+        students:
+            "learners have joined us",
+
+        private:
+            "completely private lessons",
+
+        minutes:
+            "minutes focused on you",
+
+        aboutLabel:
+            "About Language Whispers",
+
+        aboutTitle:
+            "Language learning<br>should feel personal.",
+
+        aboutText1:
+            "Language Whispers was created for learners who want more than simply attending a class. We believe progress comes from having someone who listens to you, corrects you, guides you, and helps you keep going.",
+
+        aboutText2:
+            "That is why our lessons are one-to-one. You get the teacher's full attention, the freedom to ask questions, and space to practice without feeling lost in a crowd.",
+
+        aboutText3:
+            "Lessons take place online through WhatsApp, Telegram, or Zoom. Choose a time that works for you and learn from wherever you are. A Language Whispers mobile app is also coming soon.",
+
+        programLabel:
+            "Programs",
+
+        programTitle:
+            "Pick the pace<br>that fits you.",
+
+        programIntro:
+            "Two simple options. Same one-to-one experience. Choose the rhythm that matches your goals.",
+
+        registerAction:
+            "Register for this program",
+
+        registerReadyTitle:
+            "Ready to register?",
+
+        registerReadyCopy:
+            "You chose {program}. Continue to add your name and preferred lesson schedule.",
+
+        registerProgramLabel:
+            "Selected program",
+
+        registerContinue:
+            "Yes, continue",
+
+        registerNotNow:
+            "Not now",
+
+        registerDetailsTitle:
+            "Your registration details",
+
+        registerName:
+            "Full name",
+
+        registerNamePlaceholder:
+            "Enter your full name",
+
+        registerDay:
+            "Preferred days",
+
+        registerChooseCountry:
+            "Choose a country",
+
+        registerLocation:
+            "Where do you live?",
+
+        registerChooseCountryFirst:
+            "Choose a country to see its local time.",
+
+        registerThreeDayPrompt:
+            "Choose exactly 3 learning days",
+
+        registerDayCount:
+            "{count} of 3 days selected",
+
+        registerSixDayNote:
+            "6 days per week. Sunday is the only day off.",
+
+        registerOtherCountry:
+            "Other country (use my device time zone)",
+
+        registerOtherCountryName:
+            "Enter your country",
+
+        countryEthiopia: "Ethiopia",
+        countryKenya: "Kenya",
+        countryNigeria: "Nigeria",
+        countrySouthAfrica: "South Africa",
+        countryTanzania: "Tanzania",
+        countryUganda: "Uganda",
+        countryUnitedKingdom: "United Kingdom",
+        countryTurkey: "Turkey",
+        countryIndia: "India",
+        countryUAE: "United Arab Emirates",
+        countrySaudiArabia: "Saudi Arabia",
+        countryEgypt: "Egypt",
+        countryFrance: "France",
+        countryGermany: "Germany",
+        countryUSEastern: "United States — Eastern",
+        countryUSCentral: "United States — Central",
+        countryUSMountain: "United States — Mountain",
+        countryUSPacific: "United States — Pacific",
+        countryCanadaEastern: "Canada — Eastern",
+        countryCanadaPacific: "Canada — Pacific",
+        countryAustraliaEastern: "Australia — Eastern",
+
+        registerMonday:
+            "Monday",
+
+        registerTuesday:
+            "Tuesday",
+
+        registerWednesday:
+            "Wednesday",
+
+        registerThursday:
+            "Thursday",
+
+        registerFriday:
+            "Friday",
+
+        registerSaturday:
+            "Saturday",
+
+        registerSunday:
+            "Sunday",
+
+        registerTime:
+            "Preferred start time",
+
+        registerTimezone:
+            "Enter the lesson time in {zone}. Time there now: {time}",
+
+        registerReview:
+            "Review your request",
+
+        registerReviewCopy:
+            "Check your details before continuing to Telegram.",
+
+        registerReviewName:
+            "Name",
+
+        registerReviewProgram:
+            "Program",
+
+        registerReviewPrice:
+            "Program price",
+
+        registerReviewCountry:
+            "Country",
+
+        registerReviewTimezone:
+            "Time zone",
+
+        registerReviewSchedule:
+            "Preferred schedule",
+
+        registerEdit:
+            "Edit details",
+
+        registerApprove:
+            "Approve and open Telegram",
+
+        registerTelegramNote:
+            "Telegram will open with your message ready. Tap Send there to submit your request.",
+
+        registerClose:
+            "Close registration",
+
+        standard:
+            "Standard",
+
+        threeDays:
+            "3 days / week",
+
+        standardTitle:
+            "Consistent, comfortable progress.",
+
+        standardDescription:
+            "A steady option for learners who want regular practice without an intensive schedule.",
+
+        standardLessons:
+            "12 lessons",
+
+        standardDuration:
+            "1 month + 2 weeks",
+
+        standardPrivate:
+            "One teacher with one student",
+
+        standardTime:
+            "Your preferred learning time",
+
+        intensive:
+            "Intensive",
+
+        sixDays:
+            "6 days / week",
+
+        intensiveTitle:
+            "More practice. Faster momentum.",
+
+        intensiveDescription:
+            "A more frequent schedule for learners who want to stay immersed and build momentum quickly.",
+
+        intensiveLessons:
+            "24 lessons",
+
+        intensiveDuration:
+            "1 month + 2 weeks",
+
+        intensiveSunday:
+            "Sunday is your day off",
+
+        intensivePrivate:
+            "One teacher with one student",
+
+        intensiveTime:
+            "Your preferred learning time",
+
+        experienceLabel:
+            "Why Language Whispers",
+
+        experienceTitle:
+            "A class that<br>works around you.",
+
+        experienceText:
+            "Your learning should fit into your life, not compete with it. We keep the experience simple: personal attention, flexible timing, and a space where you can actually practice speaking.",
+
+        featureOneTitle:
+            "Just you and your teacher",
+
+        featureOneText:
+            "No crowded classroom. No competing for attention.",
+
+        featureTwoTitle:
+            "Your time",
+
+        featureTwoText:
+            "Choose a learning time that fits your routine.",
+
+        featureThreeTitle:
+            "Learn from anywhere",
+
+        featureThreeText:
+            "Join through WhatsApp, Telegram, or Zoom.",
+
+        featureFourTitle:
+            "Something new is coming",
+
+        featureFourText:
+            "Our mobile learning experience is on the way.",
+
+        testimonialLabel:
+            "From our learners",
+
+        testimonialTitle:
+            "Their experience<br>says it better.",
+
+        testimonialText:
+            "See what learners who have studied with Language Whispers have to say.",
+
+        viewTestimonials:
+            "View testimonials →",
+
+        contactLabel:
+            "Let's talk",
+
+        contactTitle:
+            "Your next language<br>could start today.",
+
+        contactText:
+            "Have a question about the programs, schedule, languages, or registration? Send us a message. We'll be happy to help.",
+
+        telegram:
+            "Telegram",
+
+        email:
+            "Email",
+
+        emailSmall:
+            "Send us a message"
+    },
+
+
+    am: {
+
+        navAbout: "ስለ እኛ",
+        navPrograms: "የትምህርት አማራጮች",
+        navTestimonials: "የተማሪዎች አስተያየት",
+        navContact: "እኛን ለማግኘት",
+
+        eyebrow:
+            "ወደ Language Whispers እንኳን በደህና መጡ",
+
+        heroTitle:
+         "በሚመቾት መንገድ<em> ከእኛ ጋ ይማሩ</em>",
+
+        heroDescription:
+            "ግላዊ የኣንላይን የቋንቋ ትምህርት፤ መምህሩ ሙሉ ትኩረቱን የሚሰጥዎት፣ በተግባር የሚለማመዱበት እና ከህይወትዎ ጋር የሚስማማ የትምህርት ጊዜ ያለው።",
+
+        explorePrograms:
+            "የትምህርት አማራጮችን ይመልከቱ →",
+
+        talkTelegram:
+            "በTelegram ያነጋግሩን",
+
+        heroCardSmall:
+            "Language Whispers",
+
+        heroCardTitle:
+            "ይማሩ።<br>ይናገሩ።<br>",
+
+
+        heroNote:
+            "30–40 ደቂቃ · 1 መምህር · 1 ተማሪ",
+
+        students:
+            "እስካሁን ከእኛ ጋር የተማሩ",
+
+        private:
+            "ሙሉ በሙሉ የግል ትምህርት",
+
+        minutes:
+            "ደቂቃ ሙሉ ትኩረት ለእርስዎ",
+
+        aboutLabel:
+            "ስለ Language Whispers",
+
+        aboutTitle:
+            "ቋንቋ መማር<br>ግላዊ ልምድ መሆን አለበት።",
+
+        aboutText1:
+            "Language Whispers አንድ ክፍል ተቀምጦ ትምህርት ከመከታተል በላይ የሆነ የመማር ልምድ ለሚፈልጉ ተማሪዎች የተዘጋጀ ነው። ለእኛ እድገት ማለት የሚያዳምጥዎት፣ ስህተትዎን የሚያርምልዎት እና እንዲቀጥሉ የሚያበረታታዎት ሰው ከጎንዎ መኖር ማለት ነው።",
+
+        aboutText2:
+            "ለዚ  ነው ትምህርታችን 1 አስተማሪ ለ 1 ተማሪ ምንመድበው። መምህሩ ሙሉ ትኩረቱን ይሰጥዎታል፣ ያለምንም ጫና ጥያቄ መጠየቅ ይችላሉ፣ እንዲሁም ለመናገር እና ለመለማመድ የሚበቃ ቦታ ያገኛሉ።",
+
+        aboutText3:
+            "ትምህርቶቹ በWhatsApp፣ Telegram ወይም Zoom በመጠቀም ይሰጣሉ። ከሚመችዎት ጊዜ ጋር የሚስማማውን ጊዜ መርጠው ከየትም ቦታ መማር ይችላሉ። የLanguage Whispers የሞባይል መተግበሪያም በቅርቡ ይለቀቃል።",
+
+        programLabel:
+            "የትምህርት አማራጮች",
+
+        programTitle:
+            "ከእርስዎ ጋር<br>የሚስማማውን ይምረጡ።",
+
+        programIntro:
+            "ሁለት ቀላል አማራጮች። አንድ ዓይነት የግል ትምህርት። ከግብዎ ጋር የሚስማማውን የመማሪያ ጊዜ ይምረጡ።",
+
+        registerAction:
+            "ለዚህ ፕሮግራም ይመዝገቡ",
+
+        registerReadyTitle:
+            "ለመመዝገብ ዝግጁ ነዎት?",
+
+        registerReadyCopy:
+            "{program} መርጠዋል። ስምዎን እና የሚመችዎትን የትምህርት ጊዜ ያስገቡ።",
+
+        registerProgramLabel:
+            "የመረጡት ፕሮግራም",
+
+        registerContinue:
+            "አዎ፣ ቀጥል",
+
+        registerNotNow:
+            "አሁን አይደለም",
+
+        registerDetailsTitle:
+            "የምዝገባ ዝርዝሮችዎ",
+
+        registerName:
+            "ሙሉ ስም",
+
+        registerNamePlaceholder:
+            "ሙሉ ስምዎን ያስገቡ",
+
+        registerDay:
+            "የሚመርጡት ቀናት",
+
+        registerChooseCountry:
+            "አገር ይምረጡ",
+
+        registerLocation:
+            "የት ነው የሚኖሩት?",
+
+        registerChooseCountryFirst:
+            "የአካባቢውን ሰዓት ለማየት አገር ይምረጡ።",
+
+        registerThreeDayPrompt:
+            "በትክክል 3 የትምህርት ቀናት ይምረጡ",
+
+        registerDayCount:
+            "ከ3 ቀናት {count} ተመርጠዋል",
+
+        registerSixDayNote:
+            "በሳምንት 6 ቀናት። እሁድ ብቻ የእረፍት ቀን ነው።",
+
+        registerOtherCountry:
+            "ሌላ አገር (የመሣሪያዬን የሰዓት ክልል ተጠቀም)",
+
+        registerOtherCountryName:
+            "የአገርዎን ስም ያስገቡ",
+
+        countryEthiopia: "ኢትዮጵያ",
+        countryKenya: "ኬንያ",
+        countryNigeria: "ናይጄሪያ",
+        countrySouthAfrica: "ደቡብ አፍሪካ",
+        countryTanzania: "ታንዛኒያ",
+        countryUganda: "ኡጋንዳ",
+        countryUnitedKingdom: "እንግሊዝ",
+        countryTurkey: "ቱርክ",
+        countryIndia: "ህንድ",
+        countryUAE: "የተባበሩት የአረብ ኤሚሬቶች",
+        countrySaudiArabia: "ሳውዲ አረቢያ",
+        countryEgypt: "ግብፅ",
+        countryFrance: "ፈረንሳይ",
+        countryGermany: "ጀርመን",
+        countryUSEastern: "አሜሪካ — ምስራቃዊ",
+        countryUSCentral: "አሜሪካ — መካከለኛ",
+        countryUSMountain: "አሜሪካ — ተራራማ",
+        countryUSPacific: "አሜሪካ — ፓሲፊክ",
+        countryCanadaEastern: "ካናዳ — ምስራቃዊ",
+        countryCanadaPacific: "ካናዳ — ፓሲፊክ",
+        countryAustraliaEastern: "አውስትራሊያ — ምስራቃዊ",
+
+        registerMonday:
+            "ሰኞ",
+
+        registerTuesday:
+            "ማክሰኞ",
+
+        registerWednesday:
+            "ረቡዕ",
+
+        registerThursday:
+            "ሐሙስ",
+
+        registerFriday:
+            "ዓርብ",
+
+        registerSaturday:
+            "ቅዳሜ",
+
+        registerSunday:
+            "እሁድ",
+
+        registerTime:
+            "የሚመርጡት የመጀመሪያ ሰዓት",
+
+        registerTimezone:
+            "የትምህርቱን ሰዓት በ{zone} ይምረጡ። አሁን በዚያ ያለው ሰዓት፦ {time}",
+
+        registerReview:
+            "የጥያቄዎን ዝርዝር ይመልከቱ",
+
+        registerReviewCopy:
+            "ወደ Telegram ከመቀጠልዎ በፊት ዝርዝሮቹን ያረጋግጡ።",
+
+        registerReviewName:
+            "ስም",
+
+        registerReviewProgram:
+            "ፕሮግራም",
+
+        registerReviewPrice:
+            "የፕሮግራሙ ዋጋ",
+
+        registerReviewCountry:
+            "አገር",
+
+        registerReviewTimezone:
+            "የሰዓት ክልል",
+
+        registerReviewSchedule:
+            "የሚመርጡት የትምህርት ጊዜ",
+
+        registerEdit:
+            "ዝርዝሮችን ያስተካክሉ",
+
+        registerApprove:
+            "ያረጋግጡና Telegram ይክፈቱ",
+
+        registerTelegramNote:
+            "Telegram መልዕክትዎ ተዘጋጅቶ ይከፈታል። ጥያቄዎን ለመላክ Send ይጫኑ።",
+
+        registerClose:
+            "ምዝገባን ዝጋ",
+
+        standard:
+            "መደበኛ",
+
+        threeDays:
+            "በሳምንት 3 ቀን",
+
+        standardTitle:
+            "በመደበኛነት መማር ለሚፈልጉ።",
+
+        standardDescription:
+            "በተረጋጋ ሁኔታ መማር ለሚፈልጉ ተማሪዎቻችን ።",
+
+        standardLessons:
+            "12 ትምህርቶች",
+
+        standardDuration:
+            "1 ወር + 2 ሳምንት",
+
+        standardPrivate:
+            "አንድ መምህር ከአንድ ተማሪ ጋር",
+
+        standardTime:
+            "የሚመችዎትን የመማሪያ ጊዜ ይምረጡ",
+
+        intensive:
+            "ኢንቴንሲቭ",
+
+        sixDays:
+            "በሳምንት 6 ቀን",
+
+        intensiveTitle:
+            "ብዙ ልምምድ። ፈጣን እድገት።",
+
+        intensiveDescription:
+            "በተደጋጋሚ መማር እና ፈጣን ለውጥ ማየት ለሚፈልጉ ተማሪዎች የተዘጋጀ።",
+
+        intensiveLessons:
+            "24 ትምህርቶች",
+
+        intensiveDuration:
+            "1 ወር + 2 ሳምንት",
+
+        intensiveSunday:
+            "እሁድ የእረፍት ቀን ነው",
+
+        intensivePrivate:
+            "አንድ መምህር ከአንድ ተማሪ ጋር",
+
+        intensiveTime:
+            "የሚመችዎትን የመማሪያ ጊዜ ይምረጡ",
+
+        experienceLabel:
+            "ለምን Language Whispers?",
+
+        experienceTitle:
+            "ከህይወትዎ ጋር<br>የሚስማማ ትምህርት።",
+
+        experienceText:
+            "ትምህርት ከህይወትዎ ጋር መጋጨት የለበትም። የመማር ልምዱን ቀላል እናደርገዋለን፤ ግላዊ ትኩረት፣ ተለዋዋጭ ጊዜ እና በእውነት ለመናገር የሚያስችል የመማሪያ ሁኔታ።",
+
+        featureOneTitle:
+            "እርስዎ እና መምህርዎ ብቻ",
+
+        featureOneText:
+            "የተጨናነቀ ክፍል የለም። ለትኩረት መሽቀዳደም የለም።",
+
+        featureTwoTitle:
+            "የሚመችዎት ጊዜ",
+
+        featureTwoText:
+            "ከዕለታዊ ስራዎ ጋር የሚስማማውን ጊዜ ይምረጡ።",
+
+        featureThreeTitle:
+            "ከየትም ይማሩ",
+
+        featureThreeText:
+            "በWhatsApp፣ Telegram ወይም Zoom ይሳተፉ።",
+
+        featureFourTitle:
+            "አዲስ ነገር በመንገድ ላይ",
+
+        featureFourText:
+            "የLanguage Whispers የሞባይል የመማሪያ ልምድ በቅርቡ ይመጣል።",
+
+        testimonialLabel:
+            "ከተማሪዎቻችን",
+
+        testimonialTitle:
+            "የእነሱ ልምድ<br>ራሱ ይናገራል።",
+
+        testimonialText:
+            "ከLanguage Whispers ጋር የተማሩ ተማሪዎች ስለ ልምዳቸው ምን እንደሚሉ ይመልከቱ።",
+
+        viewTestimonials:
+            "የተማሪዎችን አስተያየት ይመልከቱ →",
+
+        contactLabel:
+            "እንነጋገር",
+
+        contactTitle:
+            "የ ቱርከኛ ቋንቋ ጉዟዎን ለመጀመር<br>በ2ቱ አማራጯች መመዝገብ ይችላሉ።",
+
+        contactText:
+            "ስለ ፕሮግራሞች፣ የትምህርት ጊዜ፣ ቋንቋዎች ወይም ምዝገባ ጥያቄ አለዎት? መልዕክት ይላኩልን። በታላቅ ደስታ እናስተናግዶታለን ።",
+
+        telegram:
+            "Telegram",
+
+        email:
+            "Email",
+
+        emailSmall:
+            "መልዕክት ይላኩልን"
+    }
+};
+
+
+/* =========================================================
+   LANGUAGE SWITCHER
+========================================================= */
+
+const languageSelect =
+    document.getElementById("languageSelect");
+
+function changeLanguage(lang){
+
+    const dictionary = translations[lang];
+
+    if(!dictionary) return;
+
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll("[data-i18n]")
+        .forEach(element => {
+
+            const key = element.dataset.i18n;
+
+            if(dictionary[key] !== undefined){
+                element.textContent = dictionary[key];
+            }
+
+        });
+
+    document.querySelectorAll("[data-i18n-html]")
+        .forEach(element => {
+
+            const key = element.dataset.i18nHtml;
+
+            if(dictionary[key] !== undefined){
+                element.innerHTML = dictionary[key];
+            }
+
+        });
+
+    localStorage.setItem("lw-language",lang);
+}
+
+
+/* Load saved language */
+
+const savedLanguage =
+    localStorage.getItem("lw-language") || "am";
+
+languageSelect.value = savedLanguage;
+
+changeLanguage(savedLanguage);
+
+languageSelect.addEventListener(
+    "change",
+    event => changeLanguage(event.target.value)
+);
+
+
+/* =========================================================
+   PROGRAM REGISTRATION
+========================================================= */
+
+const registrationDialog =
+    document.getElementById("registrationDialog");
+
+const registrationContent =
+    document.getElementById("registrationContent");
+
+const programGrid =
+    document.querySelector(".program-grid");
+
+const programDetails = {
+    standard: {
+        nameKey: "standard",
+        price: "2,000 ETB"
+    },
+    intensive: {
+        nameKey: "intensive",
+        price: "4,000 ETB"
+    }
+};
+
+const registrationDays = [
+    ["monday", "registerMonday"],
+    ["tuesday", "registerTuesday"],
+    ["wednesday", "registerWednesday"],
+    ["thursday", "registerThursday"],
+    ["friday", "registerFriday"],
+    ["saturday", "registerSaturday"],
+    ["sunday", "registerSunday"]
+];
+
+const registrationCountries = [
+    { value: "ethiopia", labelKey: "countryEthiopia", timeZone: "Africa/Addis_Ababa" },
+    { value: "kenya", labelKey: "countryKenya", timeZone: "Africa/Nairobi" },
+    { value: "nigeria", labelKey: "countryNigeria", timeZone: "Africa/Lagos" },
+    { value: "south-africa", labelKey: "countrySouthAfrica", timeZone: "Africa/Johannesburg" },
+    { value: "tanzania", labelKey: "countryTanzania", timeZone: "Africa/Dar_es_Salaam" },
+    { value: "uganda", labelKey: "countryUganda", timeZone: "Africa/Kampala" },
+    { value: "united-kingdom", labelKey: "countryUnitedKingdom", timeZone: "Europe/London" },
+    { value: "turkey", labelKey: "countryTurkey", timeZone: "Europe/Istanbul" },
+    { value: "india", labelKey: "countryIndia", timeZone: "Asia/Kolkata" },
+    { value: "uae", labelKey: "countryUAE", timeZone: "Asia/Dubai" },
+    { value: "saudi-arabia", labelKey: "countrySaudiArabia", timeZone: "Asia/Riyadh" },
+    { value: "egypt", labelKey: "countryEgypt", timeZone: "Africa/Cairo" },
+    { value: "france", labelKey: "countryFrance", timeZone: "Europe/Paris" },
+    { value: "germany", labelKey: "countryGermany", timeZone: "Europe/Berlin" },
+    { value: "us-eastern", labelKey: "countryUSEastern", timeZone: "America/New_York" },
+    { value: "us-central", labelKey: "countryUSCentral", timeZone: "America/Chicago" },
+    { value: "us-mountain", labelKey: "countryUSMountain", timeZone: "America/Denver" },
+    { value: "us-pacific", labelKey: "countryUSPacific", timeZone: "America/Los_Angeles" },
+    { value: "canada-eastern", labelKey: "countryCanadaEastern", timeZone: "America/Toronto" },
+    { value: "canada-pacific", labelKey: "countryCanadaPacific", timeZone: "America/Vancouver" },
+    { value: "australia-eastern", labelKey: "countryAustraliaEastern", timeZone: "Australia/Sydney" },
+    { value: "other", labelKey: "registerOtherCountry", timeZone: null }
+];
+
+const localTimeZone =
+    Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
+
+let chosenProgram = null;
+let registrationDetails = null;
+
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function registrationText(key) {
+    const dictionary = translations[languageSelect.value] || translations.en;
+    return dictionary[key] || translations.en[key] || key;
+}
+
+function getRegistrationCountry(value, otherCountryName = "") {
+    const country = registrationCountries.find(item => item.value === value);
+
+    if (!country) {
+        return null;
+    }
+
+    return {
+        name: country.value === "other"
+            ? otherCountryName.trim()
+            : registrationText(country.labelKey),
+        timeZone: country.timeZone || localTimeZone
+    };
+}
+
+function formatTimeInZone(timeZone) {
+    return new Intl.DateTimeFormat(undefined, {
+        timeZone,
+        hour: "numeric",
+        minute: "2-digit",
+        timeZoneName: "short"
+    }).format(new Date());
+}
+
+function renderRegistrationStart() {
+    const summaryName = escapeHTML(chosenProgram.name);
+    const summaryPrice = escapeHTML(chosenProgram.price);
+    const copy = registrationText("registerReadyCopy")
+        .replace("{program}", summaryName);
+
+    registrationContent.innerHTML = `
+        <section class="registration-step">
+            <button class="registration-close" type="button" data-action="close"
+                aria-label="${escapeHTML(registrationText("registerClose"))}">×</button>
+            <p class="registration-kicker">${escapeHTML(registrationText("registerProgramLabel"))}</p>
+            <h2 id="registrationTitle">${escapeHTML(registrationText("registerReadyTitle"))}</h2>
+            <p class="registration-copy">${copy}</p>
+            <div class="registration-summary">
+                <span>${escapeHTML(registrationText("registerProgramLabel"))}</span>
+                <strong>${summaryName} · ${summaryPrice}</strong>
+            </div>
+            <div class="registration-actions">
+                <button class="registration-button" type="button" data-action="close">
+                    ${escapeHTML(registrationText("registerNotNow"))}
+                </button>
+                <button class="registration-button registration-button-primary" type="button" data-action="continue">
+                    ${escapeHTML(registrationText("registerContinue"))}
+                </button>
+            </div>
+        </section>
+    `;
+}
+
+function renderRegistrationForm() {
+    const savedName = escapeHTML(registrationDetails?.fullName || "");
+    const savedTime = escapeHTML(registrationDetails?.time || "");
+    const selectedCountry = registrationDetails?.countryValue || "";
+    const savedOtherCountry = escapeHTML(registrationDetails?.otherCountryName || "");
+    const selectedDays = registrationDetails?.days || [];
+    const countryOptions = registrationCountries
+        .map(country => `
+            <option value="${country.value}" ${selectedCountry === country.value ? "selected" : ""}>
+                ${escapeHTML(registrationText(country.labelKey))}
+            </option>
+        `)
+        .join("");
+    const scheduleFields = chosenProgram.key === "standard"
+        ? `
+            <fieldset class="registration-days">
+                <legend>${escapeHTML(registrationText("registerDay"))}</legend>
+                <p class="registration-timezone">${escapeHTML(registrationText("registerThreeDayPrompt"))}</p>
+                <div class="registration-day-options">
+                    ${registrationDays.map(([value, key]) => `
+                        <label class="registration-day-option">
+                            <input type="checkbox" name="days" value="${value}"
+                                ${selectedDays.includes(value) ? "checked" : ""}>
+                            <span>${escapeHTML(registrationText(key))}</span>
+                        </label>
+                    `).join("")}
+                </div>
+                <p class="registration-day-count" id="registrationDayCount" aria-live="polite"></p>
+            </fieldset>
+            <label class="registration-field" for="registrationTime">
+                ${escapeHTML(registrationText("registerTime"))}
+                <input id="registrationTime" name="time" type="time"
+                    value="${savedTime}" required>
+            </label>
+        `
+        : `
+            <div class="registration-schedule-note">
+                ${escapeHTML(registrationText("registerSixDayNote"))}
+            </div>
+            <label class="registration-field" for="registrationTime">
+                ${escapeHTML(registrationText("registerTime"))}
+                <input id="registrationTime" name="time" type="time"
+                    value="${savedTime}" required>
+            </label>
+        `;
+
+    registrationContent.innerHTML = `
+        <section class="registration-step">
+            <button class="registration-close" type="button" data-action="close"
+                aria-label="${escapeHTML(registrationText("registerClose"))}">×</button>
+            <p class="registration-kicker">${escapeHTML(chosenProgram.name)} · ${escapeHTML(chosenProgram.price)}</p>
+            <h2 id="registrationTitle">${escapeHTML(registrationText("registerDetailsTitle"))}</h2>
+            <form class="registration-form" id="registrationDetailsForm">
+                <label class="registration-field" for="registrationFullName">
+                    ${escapeHTML(registrationText("registerName"))}
+                    <input id="registrationFullName" name="fullName" type="text"
+                        value="${savedName}" placeholder="${escapeHTML(registrationText("registerNamePlaceholder"))}"
+                        autocomplete="name" maxlength="100" required>
+                </label>
+                <label class="registration-field" for="registrationCountry">
+                    ${escapeHTML(registrationText("registerLocation"))}
+                    <select id="registrationCountry" name="country" required>
+                        <option value="" disabled ${selectedCountry ? "" : "selected"}>
+                            ${escapeHTML(registrationText("registerChooseCountry"))}
+                        </option>
+                        ${countryOptions}
+                    </select>
+                </label>
+                <label class="registration-field" id="registrationOtherCountryField"
+                    for="registrationOtherCountry" hidden>
+                    ${escapeHTML(registrationText("registerOtherCountryName"))}
+                    <input id="registrationOtherCountry" name="otherCountry"
+                        type="text" value="${savedOtherCountry}" maxlength="80">
+                </label>
+                ${scheduleFields}
+                <p class="registration-timezone" id="registrationTimezoneNote" aria-live="polite">
+                    ${escapeHTML(registrationText("registerChooseCountryFirst"))}
+                </p>
+                <div class="registration-actions">
+                    <button class="registration-button" type="button" data-action="close">
+                        ${escapeHTML(registrationText("registerNotNow"))}
+                    </button>
+                    <button class="registration-button registration-button-primary" type="submit">
+                        ${escapeHTML(registrationText("registerContinue"))}
+                    </button>
+                </div>
+            </form>
+        </section>
+    `;
+
+    const form = document.getElementById("registrationDetailsForm");
+    const countrySelect = form.elements.country;
+    const otherCountryField = document.getElementById("registrationOtherCountryField");
+    const otherCountryInput = form.elements.otherCountry;
+    const timezoneNote = document.getElementById("registrationTimezoneNote");
+
+    function updateCountryDetails() {
+        const isOtherCountry = countrySelect.value === "other";
+        const country = getRegistrationCountry(
+            countrySelect.value,
+            otherCountryInput.value
+        );
+
+        otherCountryField.hidden = !isOtherCountry;
+        otherCountryInput.required = isOtherCountry;
+
+        if (!countrySelect.value || !country) {
+            timezoneNote.textContent =
+                registrationText("registerChooseCountryFirst");
+            return;
+        }
+
+        timezoneNote.textContent = registrationText("registerTimezone")
+            .replace("{zone}", country.timeZone)
+            .replace("{time}", formatTimeInZone(country.timeZone));
+    }
+
+    countrySelect.addEventListener("change", updateCountryDetails);
+    otherCountryInput.addEventListener("input", updateCountryDetails);
+    updateCountryDetails();
+
+    if (chosenProgram.key === "standard") {
+        const dayCheckboxes = Array.from(form.querySelectorAll('input[name="days"]'));
+        const dayCount = document.getElementById("registrationDayCount");
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        function updateDaySelection() {
+            const selectedCount =
+                dayCheckboxes.filter(checkbox => checkbox.checked).length;
+
+            dayCount.textContent =
+                registrationText("registerDayCount")
+                    .replace("{count}", String(selectedCount));
+
+            submitButton.disabled = selectedCount !== 3;
+
+            dayCheckboxes.forEach(checkbox => {
+                checkbox.disabled =
+                    selectedCount === 3 && !checkbox.checked;
+            });
+        }
+
+        dayCheckboxes.forEach(checkbox =>
+            checkbox.addEventListener("change", updateDaySelection)
+        );
+
+        updateDaySelection();
+    }
+}
+
+function renderRegistrationReview() {
+    const isStandardProgram = chosenProgram.key === "standard";
+    const schedule = isStandardProgram
+        ? `${registrationDetails.dayNames.join(", ")} · ${registrationDetails.time}`
+        : `${registrationText("registerSixDayNote")} · ` +
+            `${registrationText("registerTime")}: ${registrationDetails.time}`;
+
+    const message = [
+        "Hello Language Whispers, I would like to register.",
+        `Full name: ${registrationDetails.fullName}`,
+        `Program: ${chosenProgram.name}`,
+        `Program price: ${chosenProgram.price}`,
+        `Country: ${registrationDetails.countryName}`,
+        `Time zone: ${registrationDetails.timeZone}`,
+        isStandardProgram
+            ? `Preferred days: ${registrationDetails.dayNames.join(", ")}` +
+                `\nPreferred time: ${registrationDetails.time} (${registrationDetails.timeZone})`
+            : "Schedule: 6 days per week; Sunday is the only day off." +
+                `\nPreferred time: ${registrationDetails.time} (${registrationDetails.timeZone})`
+    ].join("\n");
+
+    const telegramUrl =
+        `https://t.me/language_whispers1?text=${encodeURIComponent(message)}`;
+
+    registrationContent.innerHTML = `
+        <section class="registration-step">
+            <button class="registration-close" type="button" data-action="close"
+                aria-label="${escapeHTML(registrationText("registerClose"))}">×</button>
+            <p class="registration-kicker">${escapeHTML(chosenProgram.name)}</p>
+            <h2 id="registrationTitle">${escapeHTML(registrationText("registerReview"))}</h2>
+            <p class="registration-copy">${escapeHTML(registrationText("registerReviewCopy"))}</p>
+            <div class="registration-review">
+                <div class="registration-review-row">
+                    <span class="review-label">${escapeHTML(registrationText("registerReviewName"))}</span>
+                    <span class="review-value">${escapeHTML(registrationDetails.fullName)}</span>
+                </div>
+                <div class="registration-review-row">
+                    <span class="review-label">${escapeHTML(registrationText("registerReviewProgram"))}</span>
+                    <span class="review-value">${escapeHTML(chosenProgram.name)}</span>
+                </div>
+                <div class="registration-review-row">
+                    <span class="review-label">${escapeHTML(registrationText("registerReviewPrice"))}</span>
+                    <span class="review-value">${escapeHTML(chosenProgram.price)}</span>
+                </div>
+                <div class="registration-review-row">
+                    <span class="review-label">${escapeHTML(registrationText("registerReviewCountry"))}</span>
+                    <span class="review-value">${escapeHTML(registrationDetails.countryName)}</span>
+                </div>
+                <div class="registration-review-row">
+                    <span class="review-label">${escapeHTML(registrationText("registerReviewTimezone"))}</span>
+                    <span class="review-value">${escapeHTML(registrationDetails.timeZone)}</span>
+                </div>
+                <div class="registration-review-row">
+                    <span class="review-label">${escapeHTML(registrationText("registerReviewSchedule"))}</span>
+                    <span class="review-value">${escapeHTML(schedule)}</span>
+                </div>
+            </div>
+            <div class="registration-actions">
+                <button class="registration-button" type="button" data-action="edit">
+                    ${escapeHTML(registrationText("registerEdit"))}
+                </button>
+                <a class="registration-button registration-button-primary"
+                    href="${telegramUrl}">
+                    ${escapeHTML(registrationText("registerApprove"))} →
+                </a>
+            </div>
+            <p class="registration-note">${escapeHTML(registrationText("registerTelegramNote"))}</p>
+        </section>
+    `;
+}
+
+if (programGrid && registrationDialog && registrationContent) {
+
+    programGrid.addEventListener("click", event => {
+        const button = event.target.closest("[data-program-key]");
+
+        if (!button) {
+            return;
+        }
+
+        const program = programDetails[button.dataset.programKey];
+
+        if (!program) {
+            return;
+        }
+
+        const dictionary = translations[languageSelect.value] || translations.en;
+
+        chosenProgram = {
+            key: button.dataset.programKey,
+            name: dictionary[program.nameKey],
+            price: program.price
+        };
+        registrationDetails = null;
+
+        renderRegistrationStart();
+        registrationDialog.showModal();
+    });
+
+    registrationContent.addEventListener("click", event => {
+        const button = event.target.closest("[data-action]");
+
+        if (!button) {
+            return;
+        }
+
+        if (button.dataset.action === "continue") {
+            renderRegistrationForm();
+        } else if (button.dataset.action === "edit") {
+            renderRegistrationForm();
+        } else if (button.dataset.action === "close") {
+            registrationDialog.close();
+        }
+    });
+
+    registrationContent.addEventListener("input", event => {
+        if (event.target.name === "fullName") {
+            event.target.setCustomValidity("");
+        }
+    });
+
+    registrationContent.addEventListener("submit", event => {
+        if (event.target.id !== "registrationDetailsForm") {
+            return;
+        }
+
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const fullName = String(formData.get("fullName") || "").trim();
+
+        if (!fullName) {
+            event.target.elements.fullName.setCustomValidity(
+                registrationText("registerNamePlaceholder")
+            );
+            event.target.reportValidity();
+            return;
+        }
+
+        const countryValue = String(formData.get("country") || "");
+        const otherCountryName =
+            String(formData.get("otherCountry") || "").trim();
+        const country = getRegistrationCountry(countryValue, otherCountryName);
+        const selectedDays = chosenProgram.key === "standard"
+            ? formData.getAll("days").map(String)
+            : [];
+
+        if (!country || !country.name) {
+            return;
+        }
+
+        if (chosenProgram.key === "standard" && selectedDays.length !== 3) {
+            return;
+        }
+
+        registrationDetails = {
+            fullName,
+            countryValue,
+            otherCountryName,
+            countryName: country.name,
+            timeZone: country.timeZone,
+            days: selectedDays,
+            dayNames: selectedDays.map(day => {
+                const dayKey =
+                    registrationDays.find(([value]) => value === day)[1];
+
+                return registrationText(dayKey);
+            }),
+            time: String(formData.get("time"))
+        };
+
+        renderRegistrationReview();
+    });
+
+    registrationDialog.addEventListener("click", event => {
+        if (event.target === registrationDialog) {
+            registrationDialog.close();
+        }
+    });
+
+    registrationDialog.addEventListener("close", () => {
+        chosenProgram = null;
+        registrationDetails = null;
+        registrationContent.replaceChildren();
+    });
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+menuBtn.addEventListener("click",()=>{
+
+    const open =
+        navLinks.classList.toggle("open");
+
+    menuBtn.setAttribute(
+        "aria-expanded",
+        open
+    );
+
+});
+
+
+document.querySelectorAll(".nav-links a")
+    .forEach(link => {
+
+        link.addEventListener("click",()=>{
+
+            navLinks.classList.remove("open");
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        });
+
+    });
+
+
+/* =========================================================
+   NAVBAR ON SCROLL
+========================================================= */
+
+const navbar =
+    document.getElementById("navbar");
+
+window.addEventListener("scroll",()=>{
+
+    navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 30
+    );
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+revealElements.forEach(element =>
+    observer.observe(element)
+);
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
